@@ -17,10 +17,10 @@ found through git where they sit in a repository (commits made since the turn be
 since then, so any route counts: an edit tool, a script, a subagent) and by write time elsewhere, such as a Cowork
 session's outputs. Left out: history, whose subject is the change (CHANGELOG, HISTORY, NEWS, failure-modes.md,
 transcripts, memory files, anything under a Log, Changelog, History or Release notes heading); working records
-(ERRORS.md, PLAN.md); generated text (_site/, tools.html, blog/index.html, feed.xml, <!--gen:NAME--> regions); edits
-that change no visible prose; and changes under MIN_PROSE characters, such as a typo or a link. Every run appends a
-line to LOG, which is how to tell whether the hook fires in a given environment. Fails open: an error never blocks.
-Standard library only.
+(ERRORS.md, PLAN.md, .scratch/, where wayfinder keeps its maps and tickets for agents); generated text (_site/,
+tools.html, blog/index.html, feed.xml, <!--gen:NAME--> regions); edits that change no visible prose; and changes under
+MIN_PROSE characters, such as a typo or a link. Every run appends a line to LOG, which is how to tell whether the hook
+fires in a given environment. Fails open: an error never blocks. Standard library only.
 """
 
 from __future__ import annotations
@@ -47,7 +47,7 @@ SCAN_DEPTH, SCAN_SECONDS = 4, 2.0
 _DOC = re.compile(r"\.(?:md|markdown|html?)$", re.I)
 _SKIP = re.compile(r"(?:^|/)(?:CHANGELOG|CHANGES|HISTORY|NEWS)[^/]*$|(?:^|/)(?:ERRORS|PLAN)\.md$|(?:^|/)failure-modes\.md$"
                    r"|(?:^|/)transcripts?/|(?:^|/)memory/|(?:^|/)_site/|(?:^|/)tools\.html$|(?:^|/)blog/index\.html$"
-                   r"|(?:^|/)feed\.xml$|(?:^|/)node_modules/", re.I)
+                   r"|(?:^|/)feed\.xml$|(?:^|/)node_modules/|(?:^|/)\.scratch/", re.I)
 _HISTORY_HEAD = re.compile(r"^#{1,3}\s+(?:Log|Changelog|Change log|History|Release notes)\b", re.I)
 _HEAD = re.compile(r"^#{1,6}\s")
 GLOBS = ["--", "*.md", "*.markdown", "*.html", "*.htm"]

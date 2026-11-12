@@ -147,6 +147,9 @@ def test_new_untracked_file_and_skipped_paths(tmp_path, monkeypatch):
     (r / "CHANGELOG.md").write_text("# Changes\n\nThe brake now builds over half a second instead of slamming on.\n")
     (r / "_site").mkdir()
     (r / "_site" / "index.html").write_text("<p>A built copy of the page, regenerated on every deploy of the site.</p>\n")
+    (r / ".scratch" / "steering" / "issues").mkdir(parents=True)
+    (r / ".scratch" / "steering" / "map.md").write_text("## Destination\n\nA steering model the brake and gas share.\n")
+    (r / ".scratch" / "steering" / "issues" / "01-zero.md").write_text("## Question\n\nWhen is the steering zeroed?\n")
     assert [it["path"] for it in g.changed_since(t0)] == ["GUIDE.md"]
 
 

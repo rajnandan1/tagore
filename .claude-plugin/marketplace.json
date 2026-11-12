@@ -9,7 +9,7 @@
       "name": "tagore",
       "source": "./",
       "description": "Rewrites prose that reads as model-written into plain technical prose, checks that the rewrite kept every claim, and has a fresh subagent read changed docs before a turn ends.",
-      "version": "0.3.0"
+      "version": "0.3.1"
     }
   ]
 }

@@ -52,17 +52,21 @@ Before step 4, Claude can also run `declaude_rank.py`. It ranks the sentences by
 
 ## The hook
 
-The hook runs `skills/plain-prose/scripts/fresh_eyes.py` each time Claude tries to end a turn.
+The hook runs `skills/plain-prose/scripts/fresh_eyes.py` each time Claude tries to end a turn. A turn starts with your last message. If the turn changed prose in a doc, the hook makes Claude send that prose to a subagent that never saw the earlier version. This check is the newcomer read. The hook needs `python3`, and it uses `git` for files in a git repository.
 
-1. It looks for `.md` and `.html` files that changed since the turn started. It looks in the git repositories at and directly under the folder where Claude Code started, and in other files up to 4 folders deep in that folder.
-2. It counts only visible prose. It skips code blocks, inline code, HTML tags, scripts, styles and comments.
-3. It skips changelogs, `PLAN.md`, `ERRORS.md`, `memory/` and `transcripts/` folders, and generated pages such as `_site/` and `feed.xml`.
-4. It blocks the end of the turn when 2 conditions are true: the turn changed 20 or more characters of prose in total, and no newcomer read came after the last change. It writes the changed sections to a packet file in `/tmp/fresh-eyes/`, and it gives Claude a prompt that starts `FRESH-EYES READ`.
-5. Claude sends that prompt to a subagent. The subagent reads only the packet and lists each phrase that a newcomer would not understand. Claude fixes each point or says why it stays.
+1. It looks for `.md` and `.html` files that changed during the turn. In a git repository, it counts commits made during the turn, uncommitted edits and new files. It checks the repository in the folder where Claude Code started and each repository one folder below it. Outside git repositories, it checks files saved during the turn, up to 4 folders deep in the folder where Claude Code started.
+2. Only visible prose counts. Code blocks, inline code, HTML tags, scripts, styles and HTML comments do not count.
+3. It skips these files and parts of files:
+   - Files whose names start with `CHANGELOG`, `CHANGES`, `HISTORY` or `NEWS`, and the files `failure-modes.md`, `PLAN.md` and `ERRORS.md`.
+   - Everything in a `memory/`, `transcripts/`, `_site/`, `node_modules/` or `.scratch/` folder.
+   - The generated pages `tools.html` and `blog/index.html`.
+   - The text from a heading named Log, Changelog, Change log, History or Release notes to the end of the file, and the text between `<!--gen:NAME-->` and `<!--/gen:NAME-->`, for any `NAME`.
+4. It blocks the end of the turn when 2 conditions are true: 20 or more characters of prose were added, removed or rewritten in total, and Claude did not send a subagent a prompt that contains `FRESH-EYES READ` after the last change. The hook writes a packet file to `/tmp/fresh-eyes/`. For a Markdown file, the packet holds each changed section whole. For an HTML file, it holds the visible text within 25 lines of each change. Then the hook gives Claude the prompt to send.
+5. Claude sends that prompt to a subagent. The subagent reads only the packet and lists each phrase that a newcomer would not understand. Claude fixes each phrase or says why it stays.
 
-The hook blocks only once per turn, so Claude's next try to end the turn succeeds. If the hook itself has an error, it lets the turn end.
+The hook blocks at most once per turn. If Claude tries to end the turn again without the read, the turn ends. If the hook itself has an error, it lets the turn end.
 
-To make a packet by hand, run `python3 skills/plain-prose/scripts/fresh_eyes.py packet README.md`.
+To make a packet of a whole `.md` or `.html` file at any time, run `python3 skills/plain-prose/scripts/fresh_eyes.py packet <file>` from the root of a clone of this repository. The command prints the packet path and the prompt. Give that prompt to a subagent to get the newcomer read.
 
 ## Network calls and files written
 
@@ -78,11 +82,12 @@ From the repository root, run `uvx pytest skills/plain-prose/tests`. If pytest i
 
 The `plain-prose` skill is declauding version 0.14.0 by Oskar Austegard, with its scripts, tests and hook config. It comes from [oaustegard/claude-skills](https://github.com/oaustegard/claude-skills/tree/366e2f2c61fbd4291774ae4d35f32bf66e3ee2e9/declauding) at commit `366e2f2c`, under the MIT license in `LICENSE`. tagore adds the plugin manifest, the marketplace file and this README.
 
-tagore changes 4 things in the upstream files:
+tagore changes 5 things in the upstream files. The `SKILL.md`, `hooks/`, `references/`, `scripts/` and `tests/` paths in this list are inside `skills/plain-prose/`.
 
 1. The folder is `skills/plain-prose/`, not `declauding/`.
 2. In `SKILL.md`, the `name`, the title and the `/mnt/skills/user/` path say `plain-prose`.
 3. In `hooks/hooks.json`, the script path says `plain-prose`.
 4. `references/models/fable.md` also covers Fable 5.2, and the model table in `SKILL.md` names it. The 2 Fable 5.2 samples and their scores are in `evidence/fable-5-2/`.
+5. `scripts/fresh_eyes.py` also skips `.scratch/` folders, and `tests/test_fresh_eyes.py` checks that it does.
 
-The script names (`declaude_*.py`) and the other reference files keep the upstream names. So an upstream update needs only these 4 changes again, plus a merge of `fable.md` if upstream changes that file.
+The script names (`declaude_*.py`) and the other reference files keep the upstream names. So an upstream update needs only these 5 changes again, plus a merge of `references/models/fable.md`, `scripts/fresh_eyes.py` or `tests/test_fresh_eyes.py` if upstream changes one of those files.
