@@ -37,6 +37,7 @@ skills/plain-prose/hooks/         the Stop hook config
 skills/plain-prose/scripts/       the scripts that the skill and the hook run
 skills/plain-prose/references/    the pattern list and the notes that the skill reads
 skills/plain-prose/tests/         the tests
+evidence/                         the writing samples and scores behind skills/plain-prose/references/models/
 ```
 
 To add a skill, add a folder `skills/<name>/` with a `SKILL.md`. To add a hook, put its file in that skill's `hooks/` folder and add its path to the `"hooks"` array. For each release, raise `version` in both `plugin.json` and `marketplace.json`.
@@ -87,14 +88,16 @@ From the repository root, run `uvx pytest skills/plain-prose/tests`. If pytest i
 
 ## Credit
 
-The `plain-prose` skill is declauding version 0.14.0 by Oskar Austegard, with its scripts, tests and hook config. It comes from [oaustegard/claude-skills](https://github.com/oaustegard/claude-skills/tree/366e2f2c61fbd4291774ae4d35f32bf66e3ee2e9/declauding) at commit `366e2f2c`, under the MIT license in `LICENSE`. tagore adds the plugin manifest, the marketplace file and this README.
+The `plain-prose` skill is declauding version 0.14.0 by Oskar Austegard, with its scripts, tests and hook config. It comes from [oaustegard/claude-skills](https://github.com/oaustegard/claude-skills/tree/366e2f2c61fbd4291774ae4d35f32bf66e3ee2e9/declauding) at commit `366e2f2c`, under the MIT license in `LICENSE`. tagore adds the plugin manifest, the marketplace file, this README, `evidence/README.md` and the Fable 5.2 samples in `evidence/fable-5-2/`.
 
-tagore changes 5 things in the upstream files. The `SKILL.md`, `hooks/`, `references/`, `scripts/` and `tests/` paths in this list are inside `skills/plain-prose/`.
+`evidence/model-register-drift/` is a copy of the samples and scores by Oskar Austegard in [oaustegard/experiments](https://github.com/oaustegard/experiments/tree/1f3e6192b4d1f5ddbe1104eecbfd5a5b5c0f7b45/model-register-drift) at commit `1f3e6192`, under the MIT license in its own `LICENSE`. `evidence/README.md` says what the copy holds and how it differs from upstream.
+
+tagore changes 5 things in the declauding files from `oaustegard/claude-skills`. The `SKILL.md`, `hooks/`, `references/`, `scripts/` and `tests/` paths in this list are inside `skills/plain-prose/`.
 
 1. The folder is `skills/plain-prose/`, not `declauding/`.
 2. In `SKILL.md`, the `name`, the title and the `/mnt/skills/user/` path say `plain-prose`.
 3. In `hooks/hooks.json`, the script path says `plain-prose`.
-4. `references/models/fable.md` also covers Fable 5.2, and the model table in `SKILL.md` names it. The 2 Fable 5.2 samples and their scores are in `evidence/fable-5-2/`.
-5. `scripts/fresh_eyes.py` also skips the files and folders written for agents that step 3 of the hook section lists, and `tests/test_fresh_eyes.py` checks that it does.
+4. `references/models/fable.md` also covers Fable 5.2, and the model table in `SKILL.md` names it.
+5. `scripts/fresh_eyes.py` also skips the files and folders written for agents that step 3 of "The hook" above lists, and `tests/test_fresh_eyes.py` checks that it does.
 
 The script names (`declaude_*.py`) and the other reference files keep the upstream names. So an upstream update needs only these 5 changes again, plus a merge of `references/models/fable.md`, `scripts/fresh_eyes.py` or `tests/test_fresh_eyes.py` if upstream changes one of those files.
