@@ -4,7 +4,7 @@ tagore is a Claude Code plugin that rewrites agent-written prose for human reade
 
 ![The tagore wordmark: the lowercase letters of tagore hang from one red line along their tops](tagore-wordmark.svg)
 
-Bengali script, which Tagore wrote in, hangs each letter from one line along the top. That line is the matra. The wordmark writes `tagore` the same way, so every letter hangs from one red matra. The symbol is the first letter of the wordmark: a `t` whose crossbar is the matra.
+Bengali script, which Tagore wrote in, hangs most letters from one line along the top. That line is the matra. The wordmark writes `tagore` the same way, so every letter hangs from one red matra. The symbol is the first letter of the wordmark: a `t` whose crossbar is the matra.
 
 ![The tagore symbol: a lowercase t whose crossbar is the red matra](tagore-symbol.svg)
 
@@ -61,7 +61,7 @@ For a web page, first copy `favicon.ico`, `favicon.svg` and `apple-touch-icon.pn
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 ```
 
-The README at the root of this repository already uses the `<picture>` block below. It shows `tagore-wordmark-dark.svg` when GitHub uses its dark theme, and `tagore-wordmark.svg` when GitHub uses its light theme. The paths are relative, so the snippet works only in this repository. In another repository, use full URLs to the files.
+The README at the root of this repository already uses the `<picture>` block below. It shows `tagore-wordmark-dark.svg` when GitHub uses its dark theme, and `tagore-wordmark.svg` when GitHub uses its light theme. The paths are relative to the root of this repository, so the snippet works only in a file at that root. Anywhere else, use full URLs, such as `https://raw.githubusercontent.com/rajnandan1/tagore/main/assets/logo/tagore-wordmark.svg`.
 
 ```html
 <picture>
