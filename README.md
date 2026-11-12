@@ -1,4 +1,9 @@
-# tagore
+<h1>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo/tagore-wordmark-dark.svg">
+    <img alt="tagore" src="assets/logo/tagore-wordmark.svg" width="240">
+  </picture>
+</h1>
 
 A Claude Code plugin for prose that other people read. It has 2 parts:
 
