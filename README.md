@@ -2,7 +2,7 @@
 
 A Claude Code plugin for prose that other people read. It has 2 parts:
 
-- **The `declauding` skill** rewrites the sentence patterns that make text read as model-written. Examples are "it's not X, it's Y", headers that state a verdict, and one-line closers that sound like a moral. Then the skill checks that the rewrite kept every fact of the draft.
+- **The `plain-prose` skill** rewrites the sentence patterns that make text read as model-written. Examples are "it's not X, it's Y", headers that state a verdict, and one-line closers that sound like a moral. Then the skill checks that the rewrite kept every fact of the draft.
 - **A Stop hook** runs each time Claude tries to end a turn. If the turn changed a doc, Claude must first have a fresh subagent read the new text as a newcomer.
 
 The skill, its scripts and the hook come from declauding by Oskar Austegard (see Credit). tagore packages them as a plugin that you can install.
@@ -16,13 +16,31 @@ The skill, its scripts and the hook come from declauding by Oskar Austegard (see
 
 To try it for one session, clone this repository and start Claude Code with `claude --plugin-dir /path/to/tagore`.
 
+To get a new version, run `claude plugin marketplace update tagore`, then `claude plugin update tagore@tagore`, then restart Claude Code.
+
 To turn it off, run `claude plugin disable tagore@tagore`. This turns off the skill and the hook together.
+
+## Layout
+
+Each skill keeps all of its files in its own folder under `skills/`. Its hooks are in that folder too. `.claude-plugin/plugin.json` lists each hook file in its `"hooks"` array.
+
+```
+.claude-plugin/plugin.json        the plugin manifest
+.claude-plugin/marketplace.json   the catalog that /plugin marketplace add reads
+skills/plain-prose/SKILL.md       the skill
+skills/plain-prose/hooks/         the Stop hook config
+skills/plain-prose/scripts/       the scripts that the skill and the hook run
+skills/plain-prose/references/    the pattern list and the notes that the skill reads
+skills/plain-prose/tests/         the tests
+```
+
+To add a skill, add a folder `skills/<name>/` with a `SKILL.md`. To add a hook, put its file in that skill's `hooks/` folder and add its path to the `"hooks"` array. For each release, raise `version` in both `plugin.json` and `marketplace.json`.
 
 ## The skill
 
-Say "de-claude this", "humanize this" or "this reads like AI", or run `/tagore:declauding`. The skill also loads by itself when the task is prose for a reader: a PR description, commit message, README, doc, report or release note. It does not touch fiction, poetry, code or quoted text.
+Say "de-claude this", "humanize this" or "this reads like AI", or run `/tagore:plain-prose`. The skill also loads by itself when the task is prose for a reader: a PR description, commit message, README, doc, report or release note. It does not touch fiction, poetry, code or quoted text.
 
-The skill works in this order. The scripts are in `skills/declauding/scripts/`.
+The skill works in this order. The scripts are in `skills/plain-prose/scripts/`.
 
 1. Claude reads the whole draft and writes down the one point that the draft must make.
 2. `declaude_lint.py` finds the known patterns with regex and prints their line numbers.
@@ -34,7 +52,7 @@ Before step 4, Claude can also run `declaude_rank.py`. It ranks the sentences by
 
 ## The hook
 
-The hook runs `skills/declauding/scripts/fresh_eyes.py` each time Claude tries to end a turn.
+The hook runs `skills/plain-prose/scripts/fresh_eyes.py` each time Claude tries to end a turn.
 
 1. It looks for `.md` and `.html` files that changed since the turn started. It looks in the git repositories at and directly under the folder where Claude Code started, and in other files up to 4 folders deep in that folder.
 2. It counts only visible prose. It skips code blocks, inline code, HTML tags, scripts, styles and comments.
@@ -44,7 +62,7 @@ The hook runs `skills/declauding/scripts/fresh_eyes.py` each time Claude tries t
 
 The hook blocks only once per turn, so Claude's next try to end the turn succeeds. If the hook itself has an error, it lets the turn end.
 
-To make a packet by hand, run `python3 skills/declauding/scripts/fresh_eyes.py packet README.md`.
+To make a packet by hand, run `python3 skills/plain-prose/scripts/fresh_eyes.py packet README.md`.
 
 ## Network calls and files written
 
@@ -54,8 +72,15 @@ To make a packet by hand, run `python3 skills/declauding/scripts/fresh_eyes.py p
 
 ## Tests
 
-From the repository root, run `uvx pytest skills/declauding/tests`. If pytest is installed, `python3 -m pytest skills/declauding/tests` also works.
+From the repository root, run `uvx pytest skills/plain-prose/tests`. If pytest is installed, `python3 -m pytest skills/plain-prose/tests` also works.
 
 ## Credit
 
-The `declauding` skill, its scripts, its tests and the hook config are version 0.14.0 by Oskar Austegard. They come from [oaustegard/claude-skills](https://github.com/oaustegard/claude-skills/tree/366e2f2c61fbd4291774ae4d35f32bf66e3ee2e9/declauding) at commit `366e2f2c`, under the MIT license in `LICENSE`. tagore adds the plugin manifest, the marketplace file and this README. It also puts the hook config at the plugin root, where Claude Code reads it.
+The `plain-prose` skill is declauding version 0.14.0 by Oskar Austegard, with its scripts, tests and hook config. It comes from [oaustegard/claude-skills](https://github.com/oaustegard/claude-skills/tree/366e2f2c61fbd4291774ae4d35f32bf66e3ee2e9/declauding) at commit `366e2f2c`, under the MIT license in `LICENSE`. tagore adds the plugin manifest, the marketplace file and this README.
+
+tagore changes 4 things in the upstream files:
+
+1. The folder is `skills/plain-prose/`, not `declauding/`.
+2. In `SKILL.md`, the `name`, the title and the `/mnt/skills/user/` path say `plain-prose`.
+3. In `hooks/hooks.json`, the script path says `plain-prose`.
+4. The script names (`declaude_*.py`) and the reference files keep the upstream names, so that an upstream update needs only the same 4 changes.

@@ -1,6 +1,6 @@
 {
   "name": "tagore",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Rewrites prose that reads as model-written into plain technical prose, checks that the rewrite kept every claim, and has a fresh subagent read changed docs before a turn ends.",
   "author": {
     "name": "rajnandan1",
@@ -9,5 +9,13 @@
   "homepage": "https://github.com/rajnandan1/tagore",
   "repository": "https://github.com/rajnandan1/tagore",
   "license": "MIT",
-  "keywords": ["writing", "prose", "editing", "docs"]
+  "keywords": [
+    "writing",
+    "prose",
+    "editing",
+    "docs"
+  ],
+  "hooks": [
+    "./skills/plain-prose/hooks/hooks.json"
+  ]
 }
