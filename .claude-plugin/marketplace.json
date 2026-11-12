@@ -1,0 +1,15 @@
+{
+  "name": "tagore",
+  "owner": {
+    "name": "rajnandan1"
+  },
+  "description": "The tagore plugin: a skill that rewrites model-written prose into plain technical prose, and a hook that gets changed docs read by a fresh subagent.",
+  "plugins": [
+    {
+      "name": "tagore",
+      "source": "./",
+      "description": "Rewrites prose that reads as model-written into plain technical prose, checks that the rewrite kept every claim, and has a fresh subagent read changed docs before a turn ends.",
+      "version": "0.1.0"
+    }
+  ]
+}
