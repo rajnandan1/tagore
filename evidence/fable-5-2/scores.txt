@@ -1,0 +1,16 @@
+sample                  words   hits   per1k   staging   flat    struct  dash/150  short%   1-sent
+----------------------  ------  -----  ------  --------  ------  ------  --------  -------  -----
+fable-5-2-b             831     1      1.2     0.0       1.2     6       0.0       4.8      2    
+fable-5-1-a             984     3      3.05    1.02      2.03    9       0.15      17.2     6    
+opus-5-b                802     4      4.99    2.49      2.49    7       1.12      6.1      2    
+fable-5-2-a             831     5      6.02    1.2       4.81    5       0.0       5.8      2    
+opus-5-a                794     6      7.56    3.78      3.78    6       1.32      4.2      1    
+fable-5-1-b             907     9      9.92    5.51      4.41    7       0.0       5.7      2    
+
+categories by sample
+  fable-5-2-b: header 5, triad 1, density 1
+  fable-5-1-a: header 5, editorializing 2, cadence 2, density 2, significance 1
+  opus-5-b: header 5, em-dash 2, triad 1, editorializing 1, cadence 1, density 1
+  fable-5-2-a: header 5, list-shape 3, agency 1, triad 1
+  opus-5-a: header 3, density 3, significance 2, triad 2, em-dash 1, participle 1
+  fable-5-1-b: header 6, triad 4, negation-first 3, significance 2, density 1

@@ -83,4 +83,6 @@ tagore changes 4 things in the upstream files:
 1. The folder is `skills/plain-prose/`, not `declauding/`.
 2. In `SKILL.md`, the `name`, the title and the `/mnt/skills/user/` path say `plain-prose`.
 3. In `hooks/hooks.json`, the script path says `plain-prose`.
-4. The script names (`declaude_*.py`) and the reference files keep the upstream names, so that an upstream update needs only the same 4 changes.
+4. `references/models/fable.md` also covers Fable 5.2, and the model table in `SKILL.md` names it. The 2 Fable 5.2 samples and their scores are in `evidence/fable-5-2/`.
+
+The script names (`declaude_*.py`) and the other reference files keep the upstream names. So an upstream update needs only these 4 changes again, plus a merge of `fable.md` if upstream changes that file.

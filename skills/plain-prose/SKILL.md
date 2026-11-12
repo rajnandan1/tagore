@@ -82,7 +82,7 @@ drafts, and what to check in your own rewrite when you are that model.
 | Sonnet 4.6, 5 | `models/sonnet.md` | Em dashes and negation-first reversals |
 | Haiku 4.5 | `models/haiku.md` | The encyclopedic family; the linter catches most of it |
 | Sonnet 5.5, Haiku 5.5 | not yet profiled | Use the same tier's file as a prior and expect drift |
-| Fable 5.1 | `models/fable.md` | Bolded list leads and takeaways |
+| Fable 5.1, Fable 5.2 | `models/fable.md` | Bolded list leads and takeaways; 5.2 drafts carry less of the register |
 
 When Claude is cleaning its own draft, one file covers both sections; run step
 2b in a subagent or separate context. When the author is unknown or human, skip
