@@ -56,12 +56,14 @@ The hook runs `skills/plain-prose/scripts/fresh_eyes.py` each time Claude tries 
 
 1. It looks for `.md` and `.html` files that changed during the turn. In a git repository, it counts commits made during the turn, uncommitted edits and new files. It checks the repository in the folder where Claude Code started and each repository one folder below it. Outside git repositories, it checks files saved during the turn, up to 4 folders deep in the folder where Claude Code started.
 2. Only visible prose counts. Code blocks, inline code, HTML tags, scripts, styles and HTML comments do not count.
-3. It skips these files and parts of files:
+3. It skips these files and parts of files. The name match ignores case.
    - Files whose names start with `CHANGELOG`, `CHANGES`, `HISTORY` or `NEWS`, and the files `failure-modes.md`, `PLAN.md` and `ERRORS.md`.
-   - Everything in a `memory/`, `transcripts/`, `_site/`, `node_modules/` or `.scratch/` folder.
+   - Everything in a `memory/`, `transcripts/`, `_site/` or `node_modules/` folder.
+   - Files written for agents to read, in any folder: `CLAUDE.md`, `CLAUDE.local.md`, `AGENTS.md`, `AGENT.md`, `AGENTS.override.md`, `GEMINI.md`, `QWEN.md`, `WARP.md`, `CRUSH.md`, `CONVENTIONS.md`, `CONTEXT.md`, `CONTEXT-MAP.md`, `GLOSSARY.md`, `GLOSSARY-MAP.md`, `SKILL.md`, `copilot-instructions.md` and every `*.instructions.md` file.
+   - Everything in a folder of files written for agents: `.scratch/`, `.agents/`, `.claude/`, `docs/agents/`, `docs/adr/`, `.cursor/rules/`, `.github/instructions/`, `.github/agents/`, `.github/skills/`, `.github/prompts/`, `.windsurf/rules/`, `.kiro/steering/`, `.clinerules/`, `.junie/`, `.roo/rules/`, `.amazonq/rules/`, `.augment/rules/`, `.kilocode/rules/`, `.trae/rules/`, `.continue/rules/`, `.openhands/microagents/` and `.idx/`.
    - The generated pages `tools.html` and `blog/index.html`.
    - The text from a heading named Log, Changelog, Change log, History or Release notes to the end of the file, and the text between `<!--gen:NAME-->` and `<!--/gen:NAME-->`, for any `NAME`.
-4. It blocks the end of the turn when 2 conditions are true: 20 or more characters of prose were added, removed or rewritten in total, and Claude did not send a subagent a prompt that contains `FRESH-EYES READ` after the last change. The hook writes a packet file to `/tmp/fresh-eyes/`. For a Markdown file, the packet holds each changed section whole. For an HTML file, it holds the visible text within 25 lines of each change. Then the hook gives Claude the prompt to send.
+4. It blocks the end of the turn when 2 conditions are true: 20 or more characters of prose were added, removed or rewritten in total across all changed files, and Claude did not send a subagent a prompt that contains `FRESH-EYES READ` after the last change. The hook writes a packet file to `/tmp/fresh-eyes/`. For a Markdown file, the packet holds each changed section whole. For an HTML file, it holds the visible text within 25 lines of each change. Then the hook gives Claude the `FRESH-EYES READ` prompt to send.
 5. Claude sends that prompt to a subagent. The subagent reads only the packet and lists each phrase that a newcomer would not understand. Claude fixes each phrase or says why it stays.
 
 The hook blocks at most once per turn. If Claude tries to end the turn again without the read, the turn ends. If the hook itself has an error, it lets the turn end.
@@ -88,6 +90,6 @@ tagore changes 5 things in the upstream files. The `SKILL.md`, `hooks/`, `refere
 2. In `SKILL.md`, the `name`, the title and the `/mnt/skills/user/` path say `plain-prose`.
 3. In `hooks/hooks.json`, the script path says `plain-prose`.
 4. `references/models/fable.md` also covers Fable 5.2, and the model table in `SKILL.md` names it. The 2 Fable 5.2 samples and their scores are in `evidence/fable-5-2/`.
-5. `scripts/fresh_eyes.py` also skips `.scratch/` folders, and `tests/test_fresh_eyes.py` checks that it does.
+5. `scripts/fresh_eyes.py` also skips the files and folders written for agents that step 3 of the hook section lists, and `tests/test_fresh_eyes.py` checks that it does.
 
 The script names (`declaude_*.py`) and the other reference files keep the upstream names. So an upstream update needs only these 5 changes again, plus a merge of `references/models/fable.md`, `scripts/fresh_eyes.py` or `tests/test_fresh_eyes.py` if upstream changes one of those files.

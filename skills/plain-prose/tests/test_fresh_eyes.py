@@ -153,6 +153,17 @@ def test_new_untracked_file_and_skipped_paths(tmp_path, monkeypatch):
     assert [it["path"] for it in g.changed_since(t0)] == ["GUIDE.md"]
 
 
+def test_files_written_for_agents_are_skipped_and_docs_for_people_are_not():
+    agents = ["CLAUDE.md", "pkg/AGENTS.md", "AGENT.md", "AGENTS.override.md", "GEMINI.md", "CONVENTIONS.md",
+              "CONTEXT-MAP.md", "src/billing/CONTEXT.md", "GLOSSARY.md", "skills/x/SKILL.md",
+              ".github/copilot-instructions.md", ".github/instructions/py.instructions.md", ".claude/agents/r.md",
+              ".agents/skills/x/notes.md", ".cursor/rules/x/RULE.md", ".kiro/steering/tech.md", "docs/adr/0001-use-git.md",
+              "docs/agents/domain.md", ".scratch/m/issues/01-zero.md"]
+    people = ["README.md", "docs/claude-setup.md", "docs/agents-guide.md", "skills/x/references/notes.md", "CONTEXTS.md"]
+    assert [p for p in agents if not g._SKIP.search(p)] == []
+    assert [p for p in people if g._SKIP.search(p)] == []
+
+
 def test_generated_region_and_working_records_do_not_count(tmp_path, monkeypatch):
     page = "<h1>Toys</h1>\n<p>Small things to play with on a phone.</p>\n<!--gen:tools-->\n<li>Plumb: a pipe puzzle</li>\n<!--/gen:tools-->\n"
     r, git = repo(tmp_path, monkeypatch, {"index.html": page, "exp/ERRORS.md": "# Errors\n\nNone yet.\n"})
