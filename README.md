@@ -70,7 +70,7 @@ The hook runs `skills/plain-prose/scripts/fresh_eyes.py` each time Claude tries 
    - The generated pages `tools.html` and `blog/index.html`.
    - The text from a heading named Log, Changelog, Change log, History or Release notes to the end of the file, and the text between `<!--gen:NAME-->` and `<!--/gen:NAME-->`, for any `NAME`.
 4. It blocks the end of the turn when 2 conditions are true: 20 or more characters of prose were added, removed or rewritten in total across all changed files, and Claude did not send a subagent a prompt that contains `FRESH-EYES READ` after the last change. The hook writes a packet file to `/tmp/fresh-eyes/`. For a Markdown file, the packet holds each changed section whole. For an HTML file, it holds the visible text within 25 lines of each change. Then the hook gives Claude the `FRESH-EYES READ` prompt to send.
-5. Claude sends that prompt to a subagent. The subagent reads only the packet and lists each phrase that a newcomer would not understand. Claude fixes each phrase or says why it stays.
+5. Claude sends that prompt to a subagent. The subagent runs on Sonnet 5.5. To use another model, name it in your message to Claude, such as "do the newcomer read on Opus". The subagent reads only the packet and lists each phrase that a newcomer would not understand. Claude fixes each phrase or says why it stays.
 
 The hook blocks at most once per turn. If Claude tries to end the turn again without the read, the turn ends. If the hook itself has an error, it lets the turn end.
 

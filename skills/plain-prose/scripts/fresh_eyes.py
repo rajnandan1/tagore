@@ -411,7 +411,8 @@ def gate(turn: list[dict], collect=changed_since, prefix: str = "fresh_eyes") ->
     out.write_text(packet(items))
     files = ", ".join(label(it) for it in items)
     return (f"{prefix}: this turn changed reader-facing text in {files}. Before ending, have it read by someone who "
-            f"never saw the earlier version: an Agent subagent (general-purpose, a capable model) with this prompt, "
+            f"never saw the earlier version: an Agent subagent (general-purpose, model \"sonnet\" unless the user named "
+            f"another model) with this prompt, "
             f"verbatim:\n\n{reader_prompt(str(out), files)}\n\nThen fix what it reports, or say in one line why a "
             f"point stands. Where no subagent tool exists, read the packet yourself as a newcomer and say that the "
             f"read was not independent.")

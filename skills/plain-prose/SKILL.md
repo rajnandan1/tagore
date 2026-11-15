@@ -257,7 +257,8 @@ python3 scripts/fresh_eyes.py packet README.md docs/setup.md
 Pass every reader-facing file the work touched. The script writes the packet, a
 single Markdown file holding those files' text as it stands (Markdown whole,
 visible text only for HTML), and prints its path and a prompt. Send the prompt
-verbatim to a subagent that has not seen this conversation; the subagent reads
+verbatim to a subagent that has not seen this conversation, on Sonnet (Agent
+`model: "sonnet"`) unless the user named another model; the subagent reads
 the packet from disk and lists what a newcomer would stumble on, section by
 section. Fix each point or say why it stands; the step is done when a read of
 the final text comes back with nothing you have not answered. Where no

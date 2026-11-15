@@ -83,7 +83,7 @@ def test_bash_style_edit_blocks_with_packet_of_whole_section(tmp_path, monkeypat
         "Lock rotation in portrait, turn the phone a quarter turn clockwise and hold it like a wheel.",
         "Lock rotation in portrait and pick your options here, upright, then turn the phone once the race starts."))
     msg = check(turn_at(t0))
-    assert msg and "game/README.md" in msg and g.MARK in msg
+    assert msg and "game/README.md" in msg and g.MARK in msg and 'model "sonnet"' in msg
     pkt = (tmp_path / "out").glob("*.md").__next__().read_text()
     assert "## Start" in pkt and "pick your options here, upright" in pkt
     assert "# Tilt Rally" in pkt                      # the title, for orientation
