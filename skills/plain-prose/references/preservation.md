@@ -1,6 +1,6 @@
 # Content preservation and staging rank
 
-Why `declaude_diff.py` is lexical, why `declaude_rank.py` is a fitted direction
+Why `prose_diff.py` is lexical, why `prose_rank.py` is a fitted direction
 rather than a judge, and what each was measured on.
 
 ## The failure this exists for
@@ -39,7 +39,7 @@ Paraphrase invariance is the property a sentence embedder is trained to have,
 and dropping one ranking word is a paraphrase by that measure. Any encoder good
 enough to be worth using is good enough to be blind here.
 
-So `declaude_diff.py` checks set membership: numbers (digits and their spelled
+So `prose_diff.py` checks set membership: numbers (digits and their spelled
 forms), proper nouns, quoted strings, code and link targets by presence, and
 superlative, scope, negation and hedge **constructions** by count. Constructions
 rather than tokens, because case 1 keeps the token `most` and loses the ranking —
@@ -85,7 +85,7 @@ flat lexical tells and the samples that carry those are the ones that stage
 least. The two scores are measuring different things, which is the same result
 the judged experiment found between its two question phrasings.
 
-No document-level number is offered by `declaude_rank.py` for this reason.
+No document-level number is offered by `prose_rank.py` for this reason.
 
 ## Fitted axis against a model judge
 
@@ -102,8 +102,8 @@ is not asked to judge.
 ## Reproducing
 
 ```sh
-python3 scripts/declaude_rank.py --fit          # refits from register.md, prints leave-one-out
-python3 scripts/declaude_diff.py A.md B.md      # stdlib only
+python3 scripts/prose_rank.py --fit          # refits from register.md, prints leave-one-out
+python3 scripts/prose_diff.py A.md B.md      # stdlib only
 ```
 
 Adding entries with before/after pairs to `register.md` changes the axis. Refit

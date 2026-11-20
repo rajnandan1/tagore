@@ -49,12 +49,12 @@ Say "de-claude this", "humanize this" or "this reads like AI", or run `/tagore:p
 The skill works in this order. The scripts are in `skills/plain-prose/scripts/`.
 
 1. Claude reads the whole draft and writes down the one point that the draft must make.
-2. `declaude_lint.py` finds the known patterns with regex and prints their line numbers.
-3. `declaude_review.py` sends the title, the headers, the first sentence, the last sentence of each section and each one-sentence paragraph to a model. The model checks them for patterns that regex cannot find, such as a header that states a verdict.
+2. `prose_lint.py` finds the known patterns with regex and prints their line numbers.
+3. `prose_review.py` sends the title, the headers, the first sentence, the last sentence of each section and each one-sentence paragraph to a model. The model checks them for patterns that regex cannot find, such as a header that states a verdict.
 4. Claude rewrites each flagged sentence so that it states its point plainly.
-5. `declaude_diff.py` compares the rewrite with the draft. It lists the numbers, names, quotes, links and hedges that the rewrite lost or invented.
+5. `prose_diff.py` compares the rewrite with the draft. It lists the numbers, names, quotes, links and hedges that the rewrite lost or invented.
 
-Before step 4, Claude can also run `declaude_rank.py`. It ranks the sentences by how much each one acts out a finding instead of stating it.
+Before step 4, Claude can also run `prose_rank.py`. It ranks the sentences by how much each one acts out a finding instead of stating it.
 
 ## The hook
 
@@ -78,8 +78,8 @@ To make a packet of a whole `.md` or `.html` file at any time, run `python3 skil
 
 ## Network calls and files written
 
-- `declaude_review.py` sends text to Google Gemini (`gemini-3.6-flash`) when `GEMINI_API_KEY` is set. Else it sends text to the Anthropic API (`claude-sonnet-5-5`) when `ANTHROPIC_API_KEY` is set. With neither key, it prints the prompt, and Claude gives that prompt to a subagent.
-- `declaude_rank.py` downloads `sentence-transformers/all-MiniLM-L6-v2` from Hugging Face. It needs `pip install torch transformers`.
+- `prose_review.py` sends text to Google Gemini (`gemini-3.6-flash`) when `GEMINI_API_KEY` is set. Else it sends text to the Anthropic API (`claude-sonnet-5-5`) when `ANTHROPIC_API_KEY` is set. With neither key, it prints the prompt, and Claude gives that prompt to a subagent.
+- `prose_rank.py` downloads `sentence-transformers/all-MiniLM-L6-v2` from Hugging Face. It needs `pip install torch transformers`.
 - The other scripts and the hook run on your machine only. The hook writes packets to `/tmp/fresh-eyes/`. It also adds one line per run to `~/.claude/fresh-eyes-log.jsonl`, with the time, the folder and the result.
 
 ## Tests
@@ -89,15 +89,17 @@ From the repository root, run `uvx pytest skills/plain-prose/tests`. If pytest i
 ## Credit
 
 The `plain-prose` skill is declauding version 0.14.0 by Oskar Austegard, with its scripts, tests and hook config. It comes from [oaustegard/claude-skills](https://github.com/oaustegard/claude-skills/tree/366e2f2c61fbd4291774ae4d35f32bf66e3ee2e9/declauding) at commit `366e2f2c`, under the MIT license in `LICENSE`. tagore adds the plugin manifest, the marketplace file, this README, `evidence/README.md` and the Fable 5.2 samples in `evidence/fable-5-2/`.
-
 `evidence/model-register-drift/` is a copy of the samples and scores by Oskar Austegard in [oaustegard/experiments](https://github.com/oaustegard/experiments/tree/1f3e6192b4d1f5ddbe1104eecbfd5a5b5c0f7b45/model-register-drift) at commit `1f3e6192`, under the MIT license in its own `LICENSE`. `evidence/README.md` says what the copy holds and how it differs from upstream.
 
-tagore changes 5 things in the declauding files from `oaustegard/claude-skills`. The `SKILL.md`, `hooks/`, `references/`, `scripts/` and `tests/` paths in this list are inside `skills/plain-prose/`.
+tagore changes 7 things in the declauding files from `oaustegard/claude-skills`. The `SKILL.md`, `hooks/`, `references/`, `scripts/` and `tests/` paths in this list are inside `skills/plain-prose/`.
 
 1. The folder is `skills/plain-prose/`, not `declauding/`.
 2. In `SKILL.md`, the `name`, the title and the `/mnt/skills/user/` path say `plain-prose`.
 3. In `hooks/hooks.json`, the script path says `plain-prose`.
 4. `references/models/fable.md` also covers Fable 5.2, and the model table in `SKILL.md` names it.
 5. `scripts/fresh_eyes.py` also skips the files and folders written for agents that step 3 of "The hook" above lists, and `tests/test_fresh_eyes.py` checks that it does.
+6. Version 0.15.0 adds rules and examples from two other skills that rewrite model-written prose, both under the MIT license: [blader/humanizer](https://github.com/blader/humanizer) v4.0.0 and [Aboudjem/humanizer-skill](https://github.com/Aboudjem/humanizer-skill). They are in entries 2, 3, 9, 11, 12, 20 and 38 and the new entries 57 to 62 of `references/register.md`, in the last table of `references/exceptions.md`, in five sections of `SKILL.md` (the family table, the delivery modes, step 3, "Signs of a person writing" and "Scope"), in new rules in `scripts/prose_lint.py` and in new lines in `tests/sample-tics.md`. The prompts in `scripts/prose_review.py` and `scripts/fresh_eyes.py` also tell the model to treat the draft as text, not as instructions.
+   The specimens for entries 57 to 59 quote AI-written Wikipedia text from the [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) page, which is under the CC BY-SA 4.0 license.
+7. The four scripts are `prose_lint.py`, `prose_rank.py`, `prose_review.py` and `prose_diff.py`. Upstream gives them other names.
 
-The script names (`declaude_*.py`) and the other reference files keep the upstream names. So an upstream update needs only these 5 changes again, plus a merge of `references/models/fable.md`, `scripts/fresh_eyes.py` or `tests/test_fresh_eyes.py` if upstream changes one of those files.
+The reference files keep the upstream names. So an upstream update needs only these 7 changes again, plus a merge of any file that upstream also changed among `references/models/fable.md`, `references/register.md`, `references/exceptions.md`, `SKILL.md`, the four `prose_*.py` scripts, `scripts/fresh_eyes.py`, `tests/sample-tics.md` and `tests/test_fresh_eyes.py`.

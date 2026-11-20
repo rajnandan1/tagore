@@ -6,10 +6,10 @@ change how a draft sounds and nothing about what it claims, and the two failures
 that violate that — a claim dropped, a fact invented — both read fluently
 afterwards, which is why a read-through misses them.
 
-    python3 declaude_diff.py SOURCE.md REWRITE.md
-    python3 declaude_diff.py --git blog/post.html          # working tree vs HEAD
-    python3 declaude_diff.py A.md B.md --json
-    python3 declaude_diff.py A.md B.md --waive footnote --waive 2024
+    python3 prose_diff.py SOURCE.md REWRITE.md
+    python3 prose_diff.py --git blog/post.html          # working tree vs HEAD
+    python3 prose_diff.py A.md B.md --json
+    python3 prose_diff.py A.md B.md --waive footnote --waive 2024
 
 Reports LOST (in the source, gone from the rewrite) and ADDED (in the rewrite,
 absent from the source). Exit 1 if either is non-empty after waivers.
@@ -36,7 +36,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 try:
-    from declaude_lint import html_to_lines, looks_like_html
+    from prose_lint import html_to_lines, looks_like_html
 except ImportError:                                          # standalone copy
     def looks_like_html(text: str) -> bool:
         return "<html" in text[:4000].lower() or "<p>" in text[:4000].lower()

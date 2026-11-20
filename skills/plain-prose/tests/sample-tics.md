@@ -249,3 +249,89 @@ I acknowledge concerns about distraction, but Policy 1's class-time shutdown req
 Three fail on the old code; the others check behaviour the old code never reached.
 
 All five expression shapes — attribute access, subscript, calls, nested calls, string literals — leave current on NAME('b'), and the full template renders correctly.
+
+## Forms ported from two humanizer skills (v0.15.0)
+
+From blader/humanizer v4.0.0 and Aboudjem/humanizer-skill, not yet seen in a
+real draft. Three lines are test sentences written for this file: "It's not a
+bug, it's a feature.", the line with curly apostrophes, and the line about the
+AI landscape. The other lines quote the two skills.
+
+It's not a bug, it's a feature.
+
+It’s not a cache problem. It’s a DNS problem.
+
+This does not mean every choice is equal. It means there is no external system that confirms which choice is right.
+
+A tempting approach would be to rotate them by restarting the auth service on a cron job, but that would drop every active session.
+
+While some might argue that remote work hurts collaboration, the data tells a different story.
+
+At its core, what really matters is organizational readiness.
+
+Symmetry is the language of trust.
+
+In summary, the tool is fast.
+
+There are several ways to speed up a slow query. In general, it is a good idea to consider indexing.
+
+This section covers how to install the tool.
+
+Nestled within the breathtaking region of Gonder in Ethiopia, Alamata Raya Kobo stands as a vibrant town with a rich cultural heritage and stunning natural beauty.
+
+In today's fast-moving AI landscape, teams need new tools.
+
+Negatives that must stay silent — a "does not mean" with no "it means", a
+literal landscape, a "while" about time, and an argument with a named source:
+
+This does not mean the cache is safe. Run the check first, then deploy the
+build to staging.
+
+The photo is of a landscape with hills and a river.
+
+While some tests ran, the build stayed green and the deploy went out on time.
+
+Ana argued that remote work hurts collaboration, and the survey she cited agrees.
+
+If the flag is not set, it is read from the environment, so the default applies.
+
+When the file is not found, it is created in the working directory on first run.
+
+The first invoice is the price of the Pro plan for one month of use.
+
+## Entries 57 to 62 specimens (v0.15.0)
+
+Entries 57 to 59 quote AI-written Wikipedia text from Wikipedia's "Signs of AI
+writing" page, with the page's highlighting removed. The outlook paragraph and
+the entry 60 and 61 lines come from the two humanizer skills and have not been
+seen in a real draft. Entry 62 has no lint rule.
+
+Due to its unique characteristics, the Haolai River is of interest to researchers and conservationists.
+
+Her insights have also been featured in *Wired*, *Refinery29*, and other prominent media outlets.
+
+Despite its industrial and residential prosperity, Korattur faces challenges typical of urban areas, including[...] With its strategic location and ongoing initiatives, Korattur continues to thrive as an integral part of the Ambattur industrial zone, embodying the synergy between industry and residential living.
+
+The future looks bright for the company. Exciting times lie ahead as they continue their journey toward excellence.
+
+He is associated with the Rajhans Orchestra, a multicultural ensemble combining Western classical and Indian musicians and instruments.
+
+In 1975 he received the Pro Civitate award for violin. He later became associated with musical education in Knokke-Heist, where he taught violin, viola and chamber music and conducted local ensembles.
+
+People tend to underestimate how much testing matters.
+
+To some extent, this approach is arguably the best option, and it will definitely solve the problem.
+
+Negatives that must stay silent — a named group of researchers, a counted list of
+challenges, a data-model relation, the verb "tend", and a hedge with no
+certainty word:
+
+Researchers at the university surveyed the river in two seasons and published the counts.
+
+The migration faces two challenges: the schema change and the backfill of old rows.
+
+Each API key is associated with one project, and deleting the project revokes the key.
+
+The people who tend the build server rotate its keys each month and log each change.
+
+Arguably the hardest part is naming, and the code itself was simple to write.

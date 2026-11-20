@@ -68,3 +68,14 @@ Compressed-syntax shapes, entries 53 to 56:
 | Verbed noun (54) | An ad-hoc conversion saves *put it in a* — "footnote it" | The conversion is standard in the field: *scope*, *gate*, *shard* |
 | Dropped *that* (55) | The clause is long or its subject is a new noun phrase | A short clause after a common verb: "the book I read", "I think it's broken" |
 | Distant verb (56) | A list or aside sits between subject and verb | Two or three short items, or a quoted name as subject |
+
+Shapes ported from two other prose-rewriting skills, blader/humanizer and Aboudjem/humanizer-skill, entries 57 to 62:
+
+| Shape | Banned when | Earned when |
+|---|---|---|
+| Borrowed authority (57) | An unnamed expert or a list of outlets stands in for what a source said | The source is named and what it said is stated. A plain missing citation is not this shape |
+| Stock challenges and outlook (58) | The challenges stay unnamed and the outlook is a platitude | The source names the problems or the plans; keep them as facts and cut only the "Despite..." frame |
+| Vague connection (59) | "associated with" hides a relationship the source states | The source does not say what the relationship is, or it is a defined relation: "each API key is associated with one project" |
+| Narrator from a distance (60) | A claim about "people" or "one" with no person or source | The same passage names the group and the source |
+| Hedge against its own claim (61) | The hedge and a certainty word pull against each other | The hedge names a real condition, and the certainty applies to another part of the sentence |
+| Re-explaining what the reader knows (62) | A reply repeats what the other person wrote or agreed to before it gives the decision | The other person asked for the full write-up, or the text is not a reply |

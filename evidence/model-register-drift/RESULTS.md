@@ -34,7 +34,7 @@ pasted in by hand.
 
 Scoring ran in two stages, as `declauding/SKILL.md` prescribes:
 
-1. `score.py` wraps `declaude_lint.py` and normalises hits per 1000 words of
+1. `score.py` wraps `prose_lint.py` and normalises hits per 1000 words of
    body prose, split into the staging family (entries 1–23) and the flat
    encyclopedic family (24–36).
 2. `structure.py` measures three shapes regex cannot judge — verdict headers
@@ -139,7 +139,7 @@ is what people are reacting to, and it is separable from the argument.
 
 ## Entries the linter cannot reach
 
-`declaude_lint.py` reaches about two thirds of what a careful pass finds, and
+`prose_lint.py` reaches about two thirds of what a careful pass finds, and
 `SKILL.md` says which third it misses: staged paragraph shape, staged closers,
 dressed metaphor. Opus 5's violations sit almost entirely in that third.
 

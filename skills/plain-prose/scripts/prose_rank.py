@@ -3,13 +3,13 @@
 
 The regex scan reaches lexical tells. The structural third — a sentence built to
 make a finding arrive rather than to state it — has no surface form to match, so
-`declaude_lint.py` cannot see it and the skill hands that third to a reader. This
+`prose_lint.py` cannot see it and the skill hands that third to a reader. This
 script narrows what the reader has to look at.
 
-    python3 declaude_rank.py DRAFT.md               # top 15 candidates
-    python3 declaude_rank.py DRAFT.html --top 25
-    python3 declaude_rank.py DRAFT.md --json
-    python3 declaude_rank.py --fit                  # refit the axis from register.md
+    python3 prose_rank.py DRAFT.md               # top 15 candidates
+    python3 prose_rank.py DRAFT.html --top 25
+    python3 prose_rank.py DRAFT.md --json
+    python3 prose_rank.py --fit                  # refit the axis from register.md
 
 It is a fitted direction in sentence-embedding space, not a model with a prompt.
 The axis is the mean of `embed(was) - embed(now)` over the matched before/after
@@ -27,7 +27,7 @@ against ten human-graded samples the correlation is -0.26, p=0.46 — so a
 document-level number is not offered here.
 
 Needs torch and transformers, which the rest of the skill does not. Everything
-in `declaude_lint.py` and `declaude_diff.py` stays standard-library only.
+in `prose_lint.py` and `prose_diff.py` stays standard-library only.
 """
 from __future__ import annotations
 
@@ -44,7 +44,7 @@ MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 sys.path.insert(0, str(HERE))
 try:
-    from declaude_lint import html_to_lines, looks_like_html
+    from prose_lint import html_to_lines, looks_like_html
 except ImportError:
     def looks_like_html(t: str) -> bool:
         return "<html" in t[:4000].lower() or "<p>" in t[:4000].lower()
@@ -83,7 +83,7 @@ def _embedder():
         import torch
         from transformers import AutoModel, AutoTokenizer
     except ImportError:
-        sys.exit("declaude_rank needs torch and transformers:  pip install torch transformers\n"
+        sys.exit("prose_rank needs torch and transformers:  pip install torch transformers\n"
                  "The lint and diff stages do not — this stage is optional.")
     tok = AutoTokenizer.from_pretrained(MODEL)
     mod = AutoModel.from_pretrained(MODEL).eval()

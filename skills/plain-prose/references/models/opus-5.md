@@ -23,7 +23,7 @@ shorten the pass: spend it on steps 2b, 3 and 4.
 4. Cut significance designations the linter's noun list misses (entry 3): *the
    real fix*, *the actual heuristic*, *that was the trap*.
 5. Keep every technical claim. The argument under the staging is usually sound;
-   run `declaude_diff.py` to confirm the cuts removed none of it.
+   run `prose_diff.py` to confirm the cuts removed none of it.
 
 ## Running the pass as this model
 
