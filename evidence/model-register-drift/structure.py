@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Proxies for the register entries declaude_lint.py cannot reach.
+"""Proxies for the register entries prose_lint.py cannot reach.
 
 Entries 7/41 (verdict headers), 12 (aphoristic closer) and 39 (welded epigram)
 are structural. Regex cannot judge them, but each has a measurable shape:

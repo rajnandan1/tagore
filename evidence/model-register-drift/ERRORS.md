@@ -96,7 +96,7 @@ guarantees the drift aligns with the variable under test.
 
 Three options, in increasing cost:
 
-1. **Deterministic scoring only.** Report `declaude_lint.py` and stop. It is
+1. **Deterministic scoring only.** Report `prose_lint.py` and stop. It is
    reproducible and it misses a third of the register, and the third it misses
    is the interesting third — but a reproducible partial measure beats an
    irreproducible complete one.

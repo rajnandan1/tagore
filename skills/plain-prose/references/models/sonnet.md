@@ -17,7 +17,7 @@
 Sonnet cuts the evidence along with the framing: "5,697-line gather cut at line
 120" became "thousands of lines" in the PR #791 audit.
 
-- Run `declaude_diff.py` on every draft, however short, and restore each `LOST`
+- Run `prose_diff.py` on every draft, however short, and restore each `LOST`
   number, date or command value.
 - In a delegate's brief, state that dates, measured numbers and copy-pasteable
   values stay even when the sentence around them is cut.

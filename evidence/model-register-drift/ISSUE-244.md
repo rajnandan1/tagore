@@ -21,7 +21,7 @@ Six models get an identical writing assignment with no voice steering from the
 parent session or the user. Each spawned session posts its finished Markdown as
 a comment on this issue. The parent then scores every sample against the
 `declauding` skill's 42-entry Claudism register (`references/register.md`),
-via `scripts/declaude_lint.py` plus a structural pass.
+via `scripts/prose_lint.py` plus a structural pass.
 
 Arms: Opus 5, Opus 4.8, Opus 4.6, Sonnet 5, Sonnet 4.6, Haiku 4.5.
 

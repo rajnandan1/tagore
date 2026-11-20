@@ -21,7 +21,9 @@ Generative test, per sentence: *stating or staging?*
 
 **Tell:** says what something is NOT before saying what it is — "It's not that X,
 it's that Y", "The problem wasn't A. It was B.", "not because P — because Q",
-"X, not Y" as a closer, "doesn't just X, it Y's".
+"X, not Y" as a closer, "doesn't just X, it Y's", "This does not mean X. It means
+Y.", a clipped negative tail ("..., no guessing"), and an option nobody proposed,
+raised only to be rejected ("A tempting approach would be X, but...").
 
 **Why:** the reader never proposed the wrong answer. You supplied it so you could
 knock it down, which converts a plain fact into a small drama in which you are
@@ -34,6 +36,26 @@ one clause.
 > the conservative choice, and it is what these numbers do.*
 > now: *It is a non-answer rather than a wrong answer, and these numbers count it
 > as a failure, which is the conservative choice.*
+
+The split sentence and the clipped tail come from pattern 1 of [humanizer](https://github.com/blader/humanizer) v4.0.0,
+a skill that rewrites model-written prose, and the rejected option comes from its
+pattern 5. The three pairs below show them in that order:
+
+> was: *This does not mean every choice is equal. It means there is no external
+> system that confirms which choice is right.*
+> now: *The choices differ, but no outside system will tell you which one is
+> right.*
+
+> was: *The options come from the selected item, no guessing.*
+> now: *The options come from the selected item, so the user does not have to
+> guess.*
+
+> was: *Session tokens are rotated every 24 hours. A tempting approach would be
+> to rotate them by restarting the auth service on a cron job, but that would
+> drop every active session. Rotation happens in place, and clients refresh
+> transparently.*
+> now: *Session tokens rotate in place every 24 hours, and clients refresh
+> transparently.*
 
 **Earned when** the reader was actually holding the wrong answer — the previous
 paragraph proposed it, or it is the obvious default in the field. Then the
@@ -51,6 +73,9 @@ of the same gesture: "here's the twist / the catch / the kicker / the rub",
 "that's the part", "the part that makes me trust the rest", "my favourite part
 of".
 
+The same gesture in pattern 3 of [humanizer](https://github.com/blader/humanizer): *"At its core, what really matters is
+organizational readiness."*
+
 **Why:** it ranks your own sentences for the reader instead of writing a sentence
 worth ranking first. The reader decides what is interesting.
 
@@ -64,7 +89,7 @@ carry itself, the problem is the content.
 
 **Watch for reuse.** Emphasis is a budget. The same designation twice in one
 piece ("the part that matters" / "the part that transfers") is no longer
-emphasis, and reuse is the easiest instance to catch. `declaude_lint.py` groups
+emphasis, and reuse is the easiest instance to catch. `prose_lint.py` groups
 its own hits and reports a `reuse` block for any construction used twice, so this
 one costs nothing to check.
 
@@ -196,6 +221,12 @@ reader time to buy the writer a beat.
 **Fix:** put the sentence back in its paragraph. **Earned** for a real pivot: new
 actor, category shift, time jump.
 
+Under a heading, the same beat is a first line that repeats the heading: a
+section titled *Performance* that opens *"Performance is important for a good
+user experience."* (pattern P49 of [humanizer-skill](https://github.com/Aboudjem/humanizer-skill), a second skill of that kind), or a line that says *"This section covers X."*
+Cut it, and start with the first sentence that says something the heading does
+not.
+
 ---
 
 ## 10. Rhetorical question plus fragment answer
@@ -229,6 +260,13 @@ used to read "the negation-first shape wearing a costume", which is entry 37.)
 **Fix:** give the correction directly. *"That median does not mean it thinks twice
 as long. On the questions it finishes..."*
 
+The wrong reading can also belong to an unnamed "some" instead of the reader:
+*"While some might argue that remote work hurts
+collaboration, the data tells a different story."* (pattern P54 of [humanizer-skill](https://github.com/Aboudjem/humanizer-skill)). Nobody in the
+piece argued it, and the sentence never says what the data showed. Cut the
+clause and state the finding, if the piece gives it. If it does not, ask the
+author, as "Do not invent specifics" in `SKILL.md` says.
+
 ---
 
 ## 12. Aphoristic closer
@@ -244,6 +282,11 @@ be quoted. It also grades your own argument.
 **Fix:** delete it. If the paragraph needs it, the paragraph is not working.
 Where a landing is genuinely wanted, land on a fact: *"Default retries are back
 to 3."*
+
+The same fix applies to a maxim of the form *X is the language of Y*, such as
+*"Symmetry is the language of trust."* (pattern 3 of [humanizer](https://github.com/blader/humanizer)), and to a recap that opens
+"In summary," or "To sum up," or that closes on *"Whether you prefer fine dining
+or street food, Tokyo has something for every palate."* (pattern P39 of [humanizer-skill](https://github.com/Aboudjem/humanizer-skill)).
 
 ---
 
@@ -350,6 +393,27 @@ unlock, harness, embark, dive deep, at the end of the day, that said.
 
 **Why:** these do not signal a tic so much as an absence of choice. Replace with
 the specific word.
+
+Patterns 12 and 16 of [humanizer](https://github.com/blader/humanizer) add nestled, breathtaking, stunning, renowned, "in the heart
+of", additionally, enduring, showcase, underscore (as a verb), garner,
+interplay, intricate and meticulous: *"Nestled within the breathtaking region of
+Gonder in Ethiopia, Alamata Raya Kobo stands as a vibrant town with a rich
+cultural heritage and stunning natural beauty."*
+
+**Weigh the words unequally.** The linter flags each word where it appears and
+does not count per paragraph, so apply these tiers when you read its report:
+
+- One delve, tapestry, realm or interplay is evidence that a model wrote the
+  text. [humanizer-skill](https://github.com/Aboudjem/humanizer-skill) reports that these almost never survive in unedited human prose.
+- One underscore or leverage as a verb is a wordiness fix that people also need.
+  It is not evidence.
+- crucial, pivotal, robust, seamless, showcase, garner, additionally, enduring,
+  intricate, meticulous, nestled, breathtaking, stunning, renowned and "in the
+  heart of" count as evidence only at two or more in a paragraph.
+- key, important, significant and essential never count as evidence alone.
+
+The tiers follow pattern P7 of [humanizer-skill](https://github.com/Aboudjem/humanizer-skill). Where P7 does not list a word, its tier
+here is a judgment call.
 
 ---
 
@@ -710,7 +774,7 @@ always shorter and less pleased with itself.
 **Earned when** the metaphor is the clearest available description and no plain
 noun fits. Delete the ones doing significance work, not the ones doing work.
 
-**No regex reaches this one.** `declaude_lint.py` cannot see it, and a phrase
+**No regex reaches this one.** `prose_lint.py` cannot see it, and a phrase
 list for it would be three entries long and obsolete by the next draft. It is
 caught on the sentence pass or not at all. Both specimens above shipped past a
 clean lint report.
@@ -742,6 +806,15 @@ genuinely needed, write it as speech, not as a caption.
 > do. Nothing in the repo supports either.*
 > now: *Two sentences assert what people generally do, and nothing in the repo
 > supports either: X and Y.*
+
+**The uncounted form** announces a vague list instead of giving the answer:
+*"There are several ways to speed up a slow query. In general, it is a good
+idea to consider indexing."* Pattern P53 of [humanizer-skill](https://github.com/Aboudjem/humanizer-skill) reports these openers among the top
+ChatGPT markers in the HC3 corpus of paired human and ChatGPT answers (Guo et
+al. 2023, [arXiv 2301.07597](https://arxiv.org/abs/2301.07597)). Start with the
+answer:
+
+> now: *Indexing is usually worth considering for a slow query.*
 
 **Earned when** the count is real navigation over a list the reader will scan —
 "Three shapes, and the fix differs for each:" ahead of an actual three-item
@@ -1292,6 +1365,225 @@ it is a quoted name.
 
 ---
 
+# Entries 57 to 62: from two humanizer skills
+
+Entries 57 to 61 belong to the encyclopedic and chatbot family: nothing is
+staged, and the writing runs on defaults. Entry 62 is a family of its own: text
+written for the wrong reader. All six come from [humanizer](https://github.com/blader/humanizer) v4.0.0 and [humanizer-skill](https://github.com/Aboudjem/humanizer-skill), two other
+MIT-licensed skills that rewrite model-written prose. The specimens for 57 to 59
+are AI-written Wikipedia text that Wikipedia's [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) page quotes, the same
+source entries 24 to 36 use. The specimens for 60 to 62 come from the two skills
+and have not yet been seen in a real draft. Replace each one when a real draft
+shows the shape.
+
+---
+
+## 57. Borrowed authority
+
+**Tell:** importance claimed through people or outlets that the text does not
+name or quote — "experts believe", "research suggests", "is of interest to
+researchers and conservationists", "featured in X, Y, and other prominent media
+outlets", "an active social media presence".
+
+**Why:** the sentence borrows weight from a source the reader cannot check. An
+unnamed expert can be made to say anything, and a list of outlets shows only
+that the outlets exist. Neither says what was found or reported. Entry 33 fills
+a missing source with a guess; this entry fills it with a reputation.
+
+**Fix:** name the source and say what it reported, if the source text gives it.
+If it does not, cut the claim, or keep the facts and drop the frame. Do not
+supply the expert yourself; "Do not invent specifics" in `SKILL.md` uses the
+Haolai River sentence below as its example.
+
+> was: *Her insights have also been featured in Wired, Refinery29, and other
+> prominent media outlets.*
+> now: *Wired and Refinery29 have featured her insights.*
+
+"And other prominent media outlets" claims a longer list than the source gives,
+which Wikipedia's [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) page names as a tell of its own. The Haolai River sentence,
+*"Due to its unique characteristics, the Haolai River is of interest to
+researchers and conservationists"*, has no named source to keep, so the plain
+version cuts it or asks the author who studies the river.
+
+**Not a tell on its own:** a missing citation. Most writing is unsourced, and
+"Signs of a person writing" in `SKILL.md` lists an unsourced claim among the
+things not to edit alone. The tell is the borrowed name, not the absent
+footnote.
+
+Specimens: the Haolai River sentence and the Wired and Refinery29 sentence, from
+revisions of the Haolai River and Sinead Bovell articles that [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) quotes,
+by way of pattern 17 of [humanizer](https://github.com/blader/humanizer) and patterns P2, P5 and P37 of [humanizer-skill](https://github.com/Aboudjem/humanizer-skill).
+
+---
+
+## 58. Stock challenges and outlook
+
+**Tell:** a paragraph built on the template *"Despite its X, it faces
+challenges... Despite these challenges, it continues to thrive"*, or a closing
+paragraph about a bright future — "faces several challenges", "continues to
+thrive", "the future looks bright", "exciting times lie ahead", "poised for
+growth".
+
+**Why:** the template fills a slot that encyclopedia and report outlines carry,
+such as "Challenges" or "Future outlook", whether or not the source has anything
+for it. The challenges stay unnamed and the outlook is a platitude, so the
+passage reads as complete and says nothing.
+
+**Fix:** keep the facts and drop the frame. Name the problems, with their dates
+or numbers, when the source gives them. Otherwise cut the passage. End on the
+last concrete fact, or on plans the source states.
+
+> was: *Despite its industrial and residential prosperity, Korattur faces
+> challenges typical of urban areas, including[...] With its strategic location
+> and ongoing initiatives, Korattur continues to thrive as an integral part of
+> the Ambattur industrial zone, embodying the synergy between industry and
+> residential living.*
+> now: *Korattur is a prosperous industrial and residential area in the Ambattur
+> industrial zone.*
+
+The Wikipedia quote leaves out the list of challenges. In the full draft, keep
+that list as plain facts. A closing paragraph such as *"The future looks bright
+for the company. Exciting times lie ahead as they continue their journey toward
+excellence."* (pattern 13 of [humanizer](https://github.com/blader/humanizer)) has no fact to keep, so cut it.
+
+**Earned when** the source names the problems or the plans. Then they are
+facts, and only the "Despite..." frame goes.
+
+Specimens: the Korattur revision that [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) quotes, by way of pattern 13 of
+[humanizer](https://github.com/blader/humanizer) and patterns P6 and P24 of [humanizer-skill](https://github.com/Aboudjem/humanizer-skill).
+
+---
+
+## 59. Vague connection
+
+**Tell:** "is associated with", "became associated with" or "in connection
+with", where the text could name the relationship.
+
+**Why:** "associated with" covers founder, conductor, donor, guest and critic,
+so the reader cannot tell which one is meant. A model reaches for it when it
+has a co-occurrence and not a relationship.
+
+**Fix:** name the relationship when the source gives it. When the source does
+not, keep the vague wording, because a guessed relationship is worse (see "Do
+not invent specifics" in `SKILL.md`).
+
+> was: *He later became associated with musical education in Knokke-Heist,
+> where he taught violin, viola and chamber music and conducted local
+> ensembles.*
+> now: *He later taught violin, viola and chamber music in Knokke-Heist and
+> conducted local ensembles there.*
+
+Wikipedia's page also quotes *"He is associated with the Rajhans Orchestra, a
+multicultural ensemble combining Western classical and Indian musicians and
+instruments."* The source sentence never says what he did with the orchestra,
+so the vague wording stays until the author says.
+
+**Earned when** the source does not say what the relationship is, or when
+"associated with" names a defined relation, as in a data model: "each API key
+is associated with one project". The linter fires on "is associated with" only
+before a capitalized name, so the data-model case stays silent.
+
+Specimens: the revision of the article draft *Hans Vermeersch* that [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing)
+quotes, by way of pattern 14 of [humanizer](https://github.com/blader/humanizer).
+
+---
+
+## 60. Narrator from a distance
+
+**Tell:** a claim about what "people", "users" or "one" do, with nobody named
+— "people tend to", "one might say", "there is a sense that".
+
+**Why:** the claim sounds observed and has no observer. A reader cannot ask who
+tends to, or how anyone measured it. A person writing from experience says
+whose experience it was.
+
+**Fix:** name the group and the source, or state the claim as the author's own
+view. Do not add an anecdote that the draft does not have.
+
+> was: *People tend to underestimate how much testing matters.*
+> now: *I think people underestimate how much testing matters.*
+
+**Earned when** the same passage names the group and the source, as when the
+next sentence cites the survey that measured it.
+
+Specimen: pattern P45 of [humanizer-skill](https://github.com/Aboudjem/humanizer-skill). No real draft has shown it yet.
+
+---
+
+## 61. Hedge against its own claim
+
+**Tell:** a qualifier such as "to some extent", "arguably", "in some ways" or
+"to a certain degree" in the same sentence as "definitely", "clearly" or
+another word of full certainty.
+
+**Why:** the hedge and the claim pull in opposite directions, so the reader
+cannot tell how sure the writer is. It is drafting residue: the hedge went in
+before the writer decided, and the decision came later with no revision pass.
+Entry 32 covers hedges in a row. This entry covers one hedge that the rest of
+the sentence contradicts. It mirrors entries 43 to 47, where a certainty word
+has no evidence behind it.
+
+**Fix:** keep whichever of the two the author means, the hedge or the certainty
+word. If the evidence supports the claim, cut the hedge. If the doubt is real, cut the certainty word and say what the doubt
+is.
+
+> was: *To some extent, this approach is arguably the best option, and it will
+> definitely solve the problem.*
+> now: *This approach is the best option, and it will solve the problem.*
+
+**Earned when** the hedge names a real condition and the certainty applies to a
+different part of the sentence: "on the two runs that finished, it clearly
+helped".
+
+Specimen: pattern P55 of [humanizer-skill](https://github.com/Aboudjem/humanizer-skill). No real draft has shown it yet.
+
+---
+
+## 62. Re-explaining what the reader knows
+
+**Tell:** a short reply in a thread that restates the problem, walks through the
+diagnosis and lays out the evidence before it reaches the decision. A sign of
+it is background that the other person wrote or already agreed to.
+
+**Why:** a model writes for a reader who shares no context, because that fits
+the most cases. A reply has a reader who shares nearly all of it. Each sentence
+can read fine on its own, so the sentence pass does not catch it.
+
+**Fix:** lead with the decision. Keep only what would change whether the reader
+agrees: usually one fact they lack and the link they need. Move the diagnosis
+and the proof to the ticket or document that follows. The facts move; they do
+not disappear. `scripts/prose_diff.py`, which compares a rewrite with its
+draft, lists each moved fact as lost. Answer each of its findings by saying
+where the fact went.
+
+> before: *Yeah, you're right, this works around the issue rather than fixing it.
+> The real fix is in `MergeService`: when we move a child under a new parent,
+> it should update `pipeline_id` along with `parent_id`. We can backfill the
+> bad rows from the audit log with `Change.where(field: "pipeline_id", source:
+> "merge")`. I checked QA: 123 past merges, only 6 rows wrong now, so the
+> cleanup is small. Since `MergeService` is shared and not specific to this
+> account, I'd rather open a separate ticket than widen this PR. The fallback
+> here is fine to keep until then.*
+> after: *Agreed, this is a workaround. I'd rather keep this PR account-specific
+> and open a separate ticket for the `MergeService` fix and the backfill.*
+
+This pair is labelled before and after, not was and now, so `prose_rank.py`
+leaves it out of the fit it uses to rank sentences by how staged they look: the fix moves facts to a ticket, and nothing
+in the reply was staged.
+
+**Apply it to replies only.** Act on this entry when you can see the
+conversation that the reply answers, or when the text itself shows it is a
+reply, such as one that opens by agreeing with a reviewer. A
+README, a doc or a PR description has a reader who shares no context. There,
+step 4a (the newcomer read) asks for the opposite, and step 4a wins.
+
+**Earned when** the other person asked for the full write-up.
+
+Specimen: pattern 26 of [humanizer](https://github.com/blader/humanizer). No real draft has shown it yet. The linter has no
+rule for it, because it needs the conversation.
+
+---
+
 ## Quick self-check before shipping an edit
 
 1. Does any sentence exist to make a finding feel bigger than it is?
@@ -1322,3 +1614,8 @@ it is a quoted name.
 16. Is the rewrite shorter and harder to parse? Look for three nouns in a row,
     a noun used as a verb, a long clause with its *that* dropped, and a subject
     waiting behind a list for its verb. Entries 53 to 56.
+17. Does a claim lean on unnamed experts or a list of outlets, a stock
+    "despite these challenges" passage, "associated with", "people tend to", or
+    a hedge that the rest of its sentence contradicts? Entries 57 to 61.
+18. In a reply, does the text re-explain what the other person already knows
+    before it gives the decision? Entry 62.

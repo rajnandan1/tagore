@@ -6,7 +6,7 @@ test in references/register.md, and the structural tics (fragment cadence,
 drama line breaks, staged paragraph shape) are only partly reachable by regex.
 A clean report means nothing on its own.
 
-    python3 declaude_lint.py DRAFT.md [--json] [--quiet-slop]
+    python3 prose_lint.py DRAFT.md [--json] [--quiet-slop]
 """
 from __future__ import annotations
 
@@ -19,7 +19,11 @@ from pathlib import Path
 # (category, regex, note). Case-insensitive unless the pattern needs case.
 RULES: list[tuple[str, str, str]] = [
     # --- negation-first -----------------------------------------------------
-    ("negation-first", r"\b(?:is|it's|its|was|it was)\s+not\s+(?:that\s+)?[^.;]{2,60}[.;—-]\s*(?:it|that)\s+(?:is|was|'s)\b", "is-not / it-is pair"),
+    ("negation-first", r"\b(?:is|it's|its|was|it was)\s+not\s+(?:that\s+)?[^.;]{2,60}[.;—-]\s*(?:it|that)(?:\s+(?:is|was)|'s)\b", "is-not / it-is pair"),
+    ("negation-first", r"(?:^|[.!?]\s+)(?:it|this|that)(?:'s|\s+is|\s+was)\s+not\s+[^.;,]{2,60},\s*(?:it|this|that)(?:'s|\s+is|\s+was)\b", "it's not X, it's Y — comma form"),
+    ("negation-first", r"\b(?:does|do|did)(?:n't|\s+not)\s+mean\b[^.;]{2,80}[.;]\s*(?:it|this|that)\s+means\b", "doesn't mean X. It means Y — the reader never proposed X"),
+    ("negation-first", r"\b(?:a|an|one)\s+(?:tempting|obvious|natural)\s+(?:approach|option|fix|solution|move)\s+would\s+be\b|\bone\s+might\s+be\s+tempted\s+to\b", "option nobody proposed, raised to be rejected — state what the thing does"),
+    ("negation-first", r"\b(?:while|although)\s+(?:some|many|critics|others|skeptics)\s+(?:might|may|would|could)\s+(?:argue|say|claim|object|think)\b", "invented interlocutor (entry 11) — name who argued it, or state the claim"),
     ("negation-first", r"\bnot\s+because\b[^.]{0,80}—\s*because\b", "not-because / because"),
     ("negation-first", r"\b(?:doesn't|does not|didn't|did not)\s+just\b[^.]{0,60}\b(?:it|they)\b", "doesn't just X, it Y's"),
     ("negation-first", r"\bthe\s+(?:problem|failure|issue|point|question|bug|risk)\s+(?:wasn't|isn't|was not|is not)\b", "the problem wasn't X"),
@@ -38,6 +42,7 @@ RULES: list[tuple[str, str, str]] = [
     ("significance", r"\band\s+(?:that'?s|it has)\s+(?:the interesting part|a name here)\b", "manufactured reveal"),
     ("significance", r"\bthe\s+(?:one|only)\s+thing\s+(?:nobody|no one)\b", "the one thing nobody"),
     ("significance", r"\b(?:most|more)\s+(?:interesting|telling|revealing|surprising)\s+(?:part|thing|number|finding)\b", "significance tag"),
+    ("significance", r"\bat\s+its\s+core\b|\bwhat\s+(?:really|truly|actually)\s+matters\b", "at its core / what really matters — designation; state the content"),
     ("significance", r"\bNobody\s+(?:had\s+)?(?:checked|noticed|asked|mentioned|said|told|saw|knew|looked|realized|realised|caught|tried|bothered|thought)\b", "unfalsifiable 'nobody' claim — earned only with a named mechanism"),
 
     # --- abstraction agency --------------------------------------------------
@@ -60,6 +65,7 @@ RULES: list[tuple[str, str, str]] = [
     ("announce", r"^(?:One|Two|Three|Four|A single|The one)\s+[a-z][\w -]{2,30},\s+(?:not|un\w+|left|stated|worth|flagged|still|so far)\b[^.:;]{0,25}[:.]", "counted label announcing the content it precedes"),
     ("announce", r"\b(?:One|Two|Three|Four)\s+things?\s+(?:I|we)\s+(?:did|didn'?t|have|haven'?t|will|won'?t)\b[^.:;]{0,20}[:.]", "announcing a list of what you did before doing it"),
     ("announce", r"\band\s+worth\s+(?:saying|noting|restating|repeating|mentioning|a\s+look)\b[^.]{0,25}:", "'and worth saying why' — say why"),
+    ("announce", r"(?:^|[.!?]\s+)There\s+are\s+(?:several|a\s+few|many|a\s+number\s+of|various)\s+(?:ways|things|options|approaches|factors|reasons)\s+(?:to|you|that|for)\b", "announces a vague list — give the answer first (entry 38)"),
     ("announce", r"^(?:One|Two|Three|Four)\s+[a-z][\w -]{2,25}\s+(?:left\s+(?:alone|aside|open|unfixed)|unresolved|unfixed|untouched|not\s+fixed)\s*[.:]", "counted label with a participle qualifier, no comma"),
     ("announce", r"^The\s+\w+,\s+(?:worth|stated|noted|flagged|measured|left)\s+\w+[^.:;]{0,45}:", "appositive caption before the content"),
 
@@ -99,6 +105,7 @@ RULES: list[tuple[str, str, str]] = [
     # --- throat-clearing / process narration ---------------------------------
     ("throat-clearing", r"\b(?:in this (?:post|article|piece),?\s*(?:I|we)'?ll|I want to talk about|let me explain|first,? some background|before I get into)\b", "preamble"),
     ("throat-clearing", r"\b(?:let me|I'?ll)\s+(?:consult|check|search|pull up|recall)\s+my\b", "AI self-narration"),
+    ("throat-clearing", r"(?:^|[.!?]\s+)This\s+(?:section|page|document|guide)\s+(?:covers|describes|explains|discusses|outlines)\b", "restates the heading — start with the content (entry 9)"),
 
     # --- RTFM ----------------------------------------------------------------
     ("rtfm", r"\b(?:it turns out|I finally (?:discovered|realized|found)|hidden in the|buried in the (?:docs|api))\b", "RTFM as revelation"),
@@ -110,6 +117,8 @@ RULES: list[tuple[str, str, str]] = [
 
     # --- slop ----------------------------------------------------------------
     ("slop", r"\b(?:delve|tapestry|testament to|navigate the complexities|in today'?s fast[- ]paced|realm of|robust|seamless|leverage|utilize|crucial|pivotal|myriad|plethora|elevate|unlock the|harness the|embark|dive deep|at the end of the day)\b", "slop vocabulary"),
+    ("slop", r"\b(?:nestled|breathtaking|stunning|renowned|in\s+the\s+heart\s+of|interplay|garner(?:s|ed|ing)?|showcas(?:e|es|ed|ing)|intricate|meticulous(?:ly)?)\b", "slop vocabulary — entry 20 says which words count alone"),
+    ("slop", r"\b(?:evolving|ever[- ]changing|changing|shifting|today'?s(?:\s+[\w-]+){0,3})\s+landscape\b", "figurative landscape — name the field"),
 
     # --- editorializing ------------------------------------------------------
     ("editorializing", r"\b(?:collapse[sd]?|catastrophic|dramatic(?:ally)?|brutal|staggering|remarkable|impressive)\b", "check the number justifies the adjective"),
@@ -122,6 +131,8 @@ RULES: list[tuple[str, str, str]] = [
     ("aphorism", r"\bthe\s+\w+\s+that\s+looks\s+like\s+\w+", "X that looks like Y"),
     ("aphorism", r"\b(?:by\s+a\s+wide\s+margin|was\s+the\s+move)\b", "quotable closer"),
     ("aphorism", r"\bthe\s+(?:entire|whole)\s+\w+\s+of\s+the\s+thing\b", "quotable closer"),
+    ("aphorism", r"\b(?:is|are)\s+the\s+(?:language|currency)\s+of\b", "X is the language of Y — a maxim standing in for a claim"),
+    ("aphorism", r"(?:^|[.!?]\s+)(?:In\s+summary|To\s+sum\s+up|In\s+conclusion),", "recap closer — end on the last fact"),
 
     # --- staging (more) ------------------------------------------------------
     ("staging", r"\b(?:here|this)\s+is\s+what\s+[^.]{0,60}\blooks?\s+like\b", "here is what X looks like"),
@@ -185,6 +196,15 @@ RULES: list[tuple[str, str, str]] = [
     ("gap-fill", r"\bdetails\s+(?:about|are)[^.]{0,50}\b(?:limited|scarce|not\s+extensively)\b", "meta-sentence about the search"),
     ("gap-fill", r"\bit\s+is\s+believed\s+that\b", "unsourced guess"),
     ("gap-fill", r"\blikely\s+(?:grew\s+up|studied|began|started|attended)\b", "unsourced guess about a person"),
+
+    # --- entries 57 to 61, from two humanizer skills ---------------------------
+    ("attribution", r"\b(?:experts|observers|critics|analysts|scholars|some\s+sources)\s+(?:believe|say|argue|agree|suggest|note)\b|\b(?:research|studies)\s+(?:suggests?|shows?|indicates?)\b|\bis\s+of\s+interest\s+to\s+(?:researchers|scholars|scientists|experts)\b", "unnamed authority — name the source and what it said (entry 57)"),
+    ("attribution", r"\b(?:featured|profiled|cited|covered)\s+(?:in|by)\s+[^.]{3,80}\band\s+(?:other|many|several|numerous)\s+(?:\w+\s+){0,2}(?:outlets|publications|media)\b|\bactive\s+social\s+media\s+presence\b", "list of outlets as proof — say what one of them reported (entry 57)"),
+    ("outlook", r"\b(?:faces?|facing|presents?)\s+(?:(?:several|many|numerous|various|significant|a\s+number\s+of)\s+)?challenges\b|\bdespite\s+(?:these|the|its|their)\s+challenges\b|\bcontinues?\s+to\s+(?:thrive|flourish)\b", "stock challenges passage — name the problems or cut it (entry 58)"),
+    ("outlook", r"\bthe\s+future\s+looks\s+bright\b|\bexciting\s+times\s+(?:lie\s+)?ahead\b|\bpoised\s+for\s+(?:growth|success)\b|\ba\s+step\s+in\s+the\s+right\s+direction\b", "stock outlook — end on the last fact (entry 58)"),
+    ("connection", r"\b(?:is|are|was|were)\s+(?:closely\s+)?associated\s+with\s+(?:the\s+)?(?-i:[A-Z])|\bbecame\s+associated\s+with\b|\bin\s+connection\s+with\b", "vague connection — name the relationship if the source gives it (entry 59)"),
+    ("narrator", r"\b(?:people|users|developers|engineers|teams|readers|most\s+people|many\s+people)\s+tend\s+to\b|\bone\s+might\s+(?:say|argue|think|wonder|expect|assume)\b|\bthere\s+is\s+a\s+(?:sense|feeling)\s+that\b", "claim about people with no person named (entry 60)"),
+    ("hedge-clash", r"\b(?:to\s+some\s+extent|to\s+a\s+(?:certain|large)\s+degree|in\s+some\s+ways|arguably)\b[^.;]{0,80}\b(?:definitely|certainly|clearly|undoubtedly|always|without\s+(?:a\s+)?doubt)\b|\b(?:definitely|certainly|clearly|undoubtedly)\b[^.;]{0,80}\b(?:to\s+some\s+extent|to\s+a\s+(?:certain|large)\s+degree|in\s+some\s+ways|arguably)\b", "hedge and certainty pull against each other (entry 61)"),
 
     # --- diff-anchored documentation -----------------------------------------
     ("diff-anchored", r"\b(?:was|were)\s+added\s+to\s+(?:replace|fix|handle|support)\b", "documents the change, not the thing"),
@@ -342,7 +362,7 @@ CATEGORY_ORDER = [
     "staging", "triad", "em-dash", "aphorism", "rhetorical-q", "self-grading", "humility", "throat-clearing",
     "rtfm", "dev-cliche", "slop", "editorializing", "time-inflation",
     "copula", "participle", "false-range", "list-shape", "chatbot", "filler",
-    "gap-fill", "diff-anchored", "subjectless", "hyphenation", "spec-ese",
+    "gap-fill", "attribution", "outlook", "connection", "narrator", "hedge-clash", "diff-anchored", "subjectless", "hyphenation", "spec-ese",
     "flat-certainty", "juridical", "verification", "privative", "exhaustive",
     "candour", "reversal", "retroactive", "totalizing", "obituary",
     "header", "typography", "cadence", "reuse", "density",
@@ -412,8 +432,9 @@ def scan_lines(text: str, statement_headers: bool = False) -> list[dict]:
     for i, line in enumerate(lines, 1):
         stripped = line.strip()
 
+        straight = line.replace("\u2019", "'")
         for cat, rx, note in COMPILED:
-            for m in rx.finditer(line):
+            for m in rx.finditer(straight):
                 hits.append({
                     "line": i, "category": cat, "note": note,
                     "col": m.start(), "match": m.group(0).strip()[:90],
@@ -745,7 +766,7 @@ def scan_density(text: str) -> list[dict]:
         var = sum((x - mean) ** 2 for x in lens) / len(lens)
         if var ** 0.5 < 5:
             out.append({"line": 0, "category": "density",
-                        "note": f"sentence-length sd {var ** 0.5:.1f} — uniform length is its own tell; vary by content",
+                        "note": f"sentence-length sd {var ** 0.5:.1f} — uniform length counts as a tell only next to others; vary by content",
                         "match": "sentence monotony"})
     return out
 

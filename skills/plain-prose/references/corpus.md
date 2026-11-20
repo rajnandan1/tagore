@@ -53,7 +53,7 @@ author reaches for these shapes when a sentence has to sound settled.
 ## The measured rates and their limits
 
 Rate of the cluster's top-150 vocabulary as a percentage of body-prose word
-tokens, measured the way `declaude_lint.py` measures it — headings, tables, code
+tokens, measured the way `prose_lint.py` measures it — headings, tables, code
 fences and, where marked, quoted specimens excluded:
 
 | text | rate |
@@ -77,7 +77,7 @@ they do not account for it. He writes this way, and writes it well.
 
 So the rate is a **register locator, not an authorship detector**. It answers one
 question: is this draft written in the cluster's register. The
-`corpus-register` density line in `declaude_lint.py` says so in its note. That
+`corpus-register` density line in `prose_lint.py` says so in its note. That
 wording carries weight. A reader who takes the line for a detector will start
 cutting `nothing` and `measured` out of correct sentences, which is entry 23's
 failure mode with a number attached to it.
@@ -100,7 +100,7 @@ print(100 * sum(w in lead for w in words) / len(words))
 EOF
 ```
 
-The list ships in `declaude_lint.py` as `CORPUS_LEAD`, so re-running that against
+The list ships in `prose_lint.py` as `CORPUS_LEAD`, so re-running that against
 a fresh `analysis.js` is also how the list gets updated. The cluster is one fit's
 answer, and load-bearing's own §5 says the seed moves the headline, so treat a
 shifted list as a shifted sample and not a correction to this one.

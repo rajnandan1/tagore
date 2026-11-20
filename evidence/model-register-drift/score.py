@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Score writing samples against the declauding register.
 
-Runs declaude_lint.py over every sample, normalises hit counts per 1000 words,
+Runs prose_lint.py over every sample, normalises hit counts per 1000 words,
 and adds the prose-shape measures the linter reports as text rather than JSON.
 
     python3 score.py samples/ [--json]
@@ -15,7 +15,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-LINT = Path(__file__).resolve().parents[2] / "skills/plain-prose/scripts/declaude_lint.py"
+LINT = Path(__file__).resolve().parents[2] / "skills/plain-prose/scripts/prose_lint.py"
 
 # Which linter categories belong to which family in references/register.md.
 STAGING = {
