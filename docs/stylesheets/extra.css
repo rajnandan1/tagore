@@ -1,0 +1,21 @@
+/* The 4 colours of assets/logo/README.md: Ink, Paper, Laterite, Laterite light. */
+:root > * {
+  --md-primary-fg-color: #1F1D1A;
+  --md-primary-fg-color--light: #1F1D1A;
+  --md-primary-fg-color--dark: #1F1D1A;
+  --md-primary-bg-color: #F4F0E8;
+  --md-primary-bg-color--light: #F4F0E8B3;
+  --md-accent-fg-color: #B83A24;
+  --md-typeset-a-color: #B83A24;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-hue: 36;
+  --md-code-bg-color: #1F1D1A;
+  --md-accent-fg-color: #E8694F;
+  --md-typeset-a-color: #E8694F;
+}
+
+.md-header {
+  border-top: 0.2rem solid #E8694F;
+}
