@@ -15,7 +15,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-LINT = Path(__file__).resolve().parents[2] / "skills/plain-prose/scripts/prose_lint.py"
+LINT = Path(__file__).resolve().parents[2] / "skills/fair-copy/scripts/prose_lint.py"
 
 # Which linter categories belong to which family in references/register.md.
 STAGING = {

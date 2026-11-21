@@ -46,11 +46,17 @@ SCAN_ROOTS = ("/mnt/user-data/outputs", "/home/claude")       # where a session 
 SCAN_DEPTH, SCAN_SECONDS = 4, 2.0
 
 _DOC = re.compile(r"\.(?:md|markdown|html?)$", re.I)
-_AGENT_FILES = (r"(?:CLAUDE|CLAUDE\.local|AGENTS?|AGENTS\.override|GEMINI|QWEN|WARP|CRUSH|CONVENTIONS|CONTEXT|CONTEXT-MAP"
-                r"|GLOSSARY|GLOSSARY-MAP|SKILL|copilot-instructions|[^/]+\.instructions)\.md")
-_AGENT_DIRS = (r"(?:\.scratch|\.agents|\.claude|\.cursor/rules|\.github/(?:instructions|agents|skills|prompts)|\.windsurf/rules"
-               r"|\.kiro/steering|\.clinerules|\.junie|\.roo/rules|\.amazonq/rules|\.augment/rules|\.kilocode/rules"
-               r"|\.trae/rules|\.continue/rules|\.openhands/microagents|\.idx|docs/agents|docs/adr)")
+_AGENT_FILES = (r"(?:CLAUDE|CLAUDE\.local|AGENTS?|AGENTS\.(?:override|local)|GEMINI|QWEN|WARP|CRUSH|CONVENTIONS|CONTEXT"
+                r"|CONTEXT-MAP|GLOSSARY|GLOSSARY-MAP|SKILL|copilot-instructions|replit|OpenCode|global_rules|memory_summary"
+                r"|raw_memories|\.hermes|\.aider\.chat\.history"
+                r"|(?-i:MEMORY|SOUL|IDENTITY|BOOT|DREAMS|HEARTBEAT|HERMES|BUGBOT|POWER)"
+                r"|[^/]+\.(?:instructions|prompt|agent|chatmode))\.md")
+_AGENT_DIRS = (r"(?:\.scratch|\.agents?|_agents?|\.claude|\.cursor/(?:rules|commands|agents|skills)"
+               r"|\.github/(?:instructions|agents|skills|prompts|chatmodes)|\.windsurf/(?:rules|workflows|skills)|\.devin"
+               r"|\.kiro/(?:steering|agents|prompts|skills)|\.clinerules|\.cline|memory-bank|\.junie|\.roo|\.amazonq/rules"
+               r"|\.augment|\.kilo|\.kilocode|\.trae/rules|\.continue/rules|\.openhands/microagents|\.idx|\.codex|\.gemini"
+               r"|\.opencode|\.specify|\.serena|\.pi|\.factory|\.qwen|\.tabnine/guidelines|\.aiassistant/rules|\.qoder/rules"
+               r"|\.crush|\.vibe/prompts|\.ruler|\.ai/(?:guidelines|skills)|output-styles|docs/agents|docs/adr)")
 _SKIP = re.compile(r"(?:^|/)(?:CHANGELOG|CHANGES|HISTORY|NEWS)[^/]*$|(?:^|/)(?:ERRORS|PLAN)\.md$|(?:^|/)failure-modes\.md$"
                    r"|(?:^|/)transcripts?/|(?:^|/)memory/|(?:^|/)_site/|(?:^|/)tools\.html$|(?:^|/)blog/index\.html$"
                    rf"|(?:^|/)feed\.xml$|(?:^|/)node_modules/|(?:^|/){_AGENT_FILES}$|(?:^|/){_AGENT_DIRS}/", re.I)
