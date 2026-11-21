@@ -67,7 +67,7 @@ The hook runs `skills/fair-copy/scripts/fresh_eyes.py` each time Claude tries to
 
 1. It looks for `.md` and `.html` files that changed during the turn. In a git repository, it counts commits made during the turn, uncommitted edits and new files. It checks the repository in the folder where Claude Code started and each repository one folder below it. Outside git repositories, it checks files saved during the turn, up to 4 folders deep in the folder where Claude Code started.
 2. Only visible prose counts. Code blocks, inline code, HTML tags, scripts, styles and HTML comments do not count.
-3. It skips these files and parts of files. The name match ignores case, except for the 9 names that the second bullet lists.
+3. It skips these files and parts of files. The name match ignores case, except for the 9 names in the list below that match only in capital letters.
    - Files whose names start with `CHANGELOG`, `CHANGES`, `HISTORY` or `NEWS`, and the files `failure-modes.md`, `PLAN.md` and `ERRORS.md`.
    - Everything in a `memory/`, `transcripts/`, `_site/` or `node_modules/` folder.
    - Files written for agents to read, in any folder: `CLAUDE.md`, `CLAUDE.local.md`, `AGENTS.md`, `AGENT.md`, `AGENTS.override.md`, `AGENTS.local.md`, `GEMINI.md`, `QWEN.md`, `WARP.md`, `CRUSH.md`, `CONVENTIONS.md`, `CONTEXT.md`, `CONTEXT-MAP.md`, `GLOSSARY.md`, `GLOSSARY-MAP.md`, `SKILL.md`, `copilot-instructions.md`, `replit.md`, `OpenCode.md`, `global_rules.md`, `memory_summary.md`, `raw_memories.md`, `.hermes.md`, `.aider.chat.history.md`, and every `*.instructions.md`, `*.prompt.md`, `*.agent.md` and `*.chatmode.md` file.
