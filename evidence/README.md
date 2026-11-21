@@ -1,12 +1,12 @@
 # Evidence
 
-The `plain-prose` skill rewrites the sentence patterns that make text read as written by a model. Upstream, the skill is called declauding. Each file in `skills/plain-prose/references/models/` tells the skill which of those patterns one Claude model family writes most. This folder holds the writing samples and the scores behind those files.
+The `fair-copy` skill rewrites the sentence patterns that make text read as written by a model. Upstream, the skill is called declauding. Each file in `skills/fair-copy/references/models/` tells the skill which of those patterns one Claude model family writes most. This folder holds the writing samples and the scores behind those files.
 
 ## What is here
 
 - `model-register-drift/` is a copy of the [model-register-drift](https://github.com/oaustegard/experiments/tree/1f3e6192b4d1f5ddbe1104eecbfd5a5b5c0f7b45/model-register-drift) folder of `oaustegard/experiments` at commit `1f3e6192`, by Oskar Austegard, under the MIT license in `model-register-drift/LICENSE`. Its `RESULTS.md` gives the method and the results, and its `FABLE-ADDENDUM.md` covers Fable 5.1. `blind/` holds 10 of the samples under shuffled names (`blind_key.json` maps them) for the blind judging that `RESULTS.md` describes. The other files are the scripts, inputs and outputs of the scoring and the judging that `RESULTS.md` describes, and `ERRORS.md` lists what went wrong during the upstream runs. The copy is the same as the upstream folder, with 3 differences:
   - It adds `LICENSE` from the root of `oaustegard/experiments`.
-  - `score.py` runs the linter of this repository, `skills/plain-prose/scripts/prose_lint.py`. It finds that file from its own location, so it works from any folder. Upstream it runs the linter from the folder where the upstream skill is installed.
+  - `score.py` runs the linter of this repository, `skills/fair-copy/scripts/prose_lint.py`. It finds that file from its own location, so it works from any folder. Upstream it runs the linter from the folder where the upstream skill is installed.
   - `score.py`, `structure.py`, `RESULTS.md`, `ERRORS.md` and `ISSUE-244.md` name the linter `prose_lint.py`, the name it has in this repository. Upstream gives it another name.
 
   One upstream script does not work here: `fetch_samples.py` downloads the samples from issue 244 of `oaustegard/claude-workspace`, which is a private repository. You do not need it, because the samples are already in `samples/`. `ISSUE-244.md` is the upstream copy of that issue.
@@ -49,11 +49,11 @@ Run these steps from the root of this repository.
    - `words` is the number of words of prose, without code blocks and headers.
    - `hits` is the number of linter hits, without the hits about the whole post.
    - `per1k` is `hits` per 1,000 words, so a lower number means fewer model-written patterns.
-   - `staging` counts, per 1,000 words, the hits of the staging family of patterns in `skills/plain-prose/references/register.md`, and `flat` counts the hits of its encyclopedic family. Some linter categories, such as `flat-certainty`, `reversal` and `totalizing`, are in neither list in `score.py`, so the 2 columns can add up to less than `per1k`.
+   - `staging` counts, per 1,000 words, the hits of the staging family of patterns in `skills/fair-copy/references/register.md`, and `flat` counts the hits of its encyclopedic family. Some linter categories, such as `flat-certainty`, `reversal` and `totalizing`, are in neither list in `score.py`, so the 2 columns can add up to less than `per1k`.
    - `struct` is the number of hits about the whole post, such as headers.
    - `dash/150` is the number of em dashes per 150 words.
    - `short%` is the percentage of sentences with 5 words or fewer.
    - `1-sent` is the number of paragraphs that are one sentence long, not counting list items, tables and quotes.
-5. Find the model file for your model in the model table of `skills/plain-prose/SKILL.md`. For Opus 5.5, it is `skills/plain-prose/references/models/opus-5.md`. If the table says "not yet profiled", add a new file and a row to that table.
-6. Write what the samples show into that file, as `skills/plain-prose/references/models/fable.md` does for Fable 5.2. Then name your folder in the `Evidence:` paragraph at the end of the file, for example: "Opus 5.5, `evidence/opus-5-5/` in the tagore repository (two samples, 2026-11-13, the rebuilt cache prompt)."
+5. Find the model file for your model in the model table of `skills/fair-copy/SKILL.md`. For Opus 5.5, it is `skills/fair-copy/references/models/opus-5.md`. If the table says "not yet profiled", add a new file and a row to that table.
+6. Write what the samples show into that file, as `skills/fair-copy/references/models/fable.md` does for Fable 5.2. Then name your folder in the `Evidence:` paragraph at the end of the file, for example: "Opus 5.5, `evidence/opus-5-5/` in the tagore repository (two samples, 2026-11-13, the rebuilt cache prompt)."
 7. Add a row for the model to the table in this README.

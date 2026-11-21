@@ -1,6 +1,6 @@
 # Fable 5.2 samples
 
-These 2 samples back the Fable 5.2 lines in `skills/plain-prose/references/models/fable.md`. They repeat the Fable 5.1 run in `oaustegard/experiments` `model-register-drift/FABLE-ADDENDUM.md` on `claude-fable-5-2`, on 2026-11-12.
+These 2 samples back the Fable 5.2 lines in `skills/fair-copy/references/models/fable.md`. They repeat the Fable 5.1 run in `oaustegard/experiments` `model-register-drift/FABLE-ADDENDUM.md` on `claude-fable-5-2`, on 2026-11-12.
 
 ## Method
 

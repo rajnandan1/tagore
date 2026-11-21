@@ -1,6 +1,6 @@
 # Fresh eyes: why the newcomer read is a subagent, and what was measured
 
-Background for plain-prose's step 4a, the newcomer read. The failure it targets: reader-facing text written right
+Background for fair-copy's step 4a, the newcomer read. The failure it targets: reader-facing text written right
 after a change takes its content from the change. The case that named it is the start screen of Tilt Rally, a phone
 racing game, whose first step read *Lock rotation in portrait and pick your options here, upright.* after the
 options moved off a sideways screen. *Here* and *upright* carry information only for someone who saw that screen; a

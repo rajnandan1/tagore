@@ -1,11 +1,11 @@
 ---
-name: plain-prose
-description: Load it without being asked at the start of any task whose deliverable is prose that another person will read, such as a PR description, commit message, README, doc, postmortem, blog post, issue or review comment, report, release note or essay, and run it on the draft before the text is pushed, posted, published or saved. Draft first without this skill in context, from a positive writing brief if one exists. Also use it when someone says "de-claude", "de-slop", "humanize this", "this reads like AI" or "make it sound human", or asks for a voice, tone or register edit. It rewrites the constructions that mark prose as model-written into plain technical prose, and checks that the rewrite kept the draft's claims. The constructions include staged reveals, verdict headers, aphoristic closers, "it's not X, it's Y", em-dash drama, forced triads, flat-certainty adverbs, noun stacks and dropped 'that'. Do not use it on fiction, poetry, code or quoted text. For a full adversarial review of a deliverable, use challenging.
+name: fair-copy
+description: Load it without being asked at the start of any task whose deliverable is prose that another person will read, such as a PR description, commit message, README, doc, postmortem, blog post, issue or review comment, report, release note or essay, and run it on the draft before the text is pushed, posted, published or saved. Draft first without this skill in context, from a positive writing brief if one exists. Also use it when someone says "de-claude", "de-slop", "humanize this", "this reads like AI" or "make it sound human", or asks for a voice, tone or register edit. It rewrites the constructions that mark prose as model-written into plain technical prose, and checks that the rewrite kept the draft's claims. The constructions include staged reveals, verdict headers, aphoristic closers, "it's not X, it's Y", em-dash drama, forced triads, flat-certainty adverbs, noun stacks and dropped 'that'. Do not use it on fiction, poetry, code or quoted text. It is not for Claude's own replies to the user in the session, which the `straight-talk` output style covers. For a full adversarial review of a deliverable, use challenging.
 metadata:
-  version: 0.15.0
+  version: 0.15.1
 ---
 
-# Plain prose
+# Fair copy
 
 Turn LLM-shaped prose into prose that a human technical writer would have written.
 
@@ -116,7 +116,7 @@ the current draft is not.
 ## Workflow
 
 Script paths below are relative to this skill's directory. From any other
-working directory, prefix them with `/mnt/skills/user/plain-prose/`.
+working directory, prefix them with `/mnt/skills/user/fair-copy/`.
 
 **1. Read the whole piece before editing anything.** Tics carry factual errors.
 A sentence written to sound important is disproportionately likely to be wrong,
