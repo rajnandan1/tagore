@@ -1,0 +1,61 @@
+site_name: tagore
+site_description: A Claude Code plugin for prose that other people read.
+site_url: https://rajnandan1.github.io/tagore/
+repo_url: https://github.com/rajnandan1/tagore
+repo_name: rajnandan1/tagore
+site_dir: _site
+exclude_docs: |
+  logo/README.md
+
+nav:
+  - Home: index.md
+  - Quick start: quick-start.md
+  - How it works: how-it-works.md
+  - Guides:
+      - The fair-copy skill: fair-copy.md
+      - Hooks: hooks.md
+      - The straight-talk output style: straight-talk.md
+  - Reference:
+      - Files that the Stop hook skips: skipped-files.md
+      - Network calls and files written: network-and-files.md
+      - Development: development.md
+      - Credit: https://github.com/rajnandan1/tagore#credit
+
+theme:
+  name: material
+  logo: logo/tagore-symbol-dark.svg
+  favicon: logo/favicon.ico
+  font: false
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.footer
+    - content.code.copy
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - attr_list
+  - toc:
+      permalink: true
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn
