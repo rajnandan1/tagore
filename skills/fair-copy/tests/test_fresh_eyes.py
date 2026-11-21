@@ -158,8 +158,21 @@ def test_files_written_for_agents_are_skipped_and_docs_for_people_are_not():
               "CONTEXT-MAP.md", "src/billing/CONTEXT.md", "GLOSSARY.md", "skills/x/SKILL.md",
               ".github/copilot-instructions.md", ".github/instructions/py.instructions.md", ".claude/agents/r.md",
               ".agents/skills/x/notes.md", ".cursor/rules/x/RULE.md", ".kiro/steering/tech.md", "docs/adr/0001-use-git.md",
-              "docs/agents/domain.md", ".scratch/m/issues/01-zero.md"]
-    people = ["README.md", "docs/claude-setup.md", "docs/agents-guide.md", "skills/x/references/notes.md", "CONTEXTS.md"]
+              "docs/agents/domain.md", ".scratch/m/issues/01-zero.md",
+              "MEMORY.md", "bot/SOUL.md", "IDENTITY.md", "BOOT.md", "DREAMS.md", "HEARTBEAT.md", "HERMES.md", ".hermes.md",
+              "AGENTS.local.md", ".cursor/BUGBOT.md", "POWER.md", "replit.md", "OpenCode.md", ".devin/global_rules.md",
+              ".aider.chat.history.md", "prompts/fix.prompt.md", "x/reviewer.agent.md", ".github/chatmodes/a.chatmode.md",
+              ".agent/rules/style.md", "_agents/workflows/ship.md", ".cursor/commands/ship.md", ".windsurf/workflows/a.md",
+              ".kiro/agents/a.md", ".cline/rules/a.md", "memory-bank/activeContext.md", ".roo/commands/a.md",
+              ".augment/commands/a.md", ".kilo/agents/a.md", ".codex/prompts/a.md", ".gemini/system.md",
+              ".opencode/agents/a.md", ".specify/memory/constitution.md", ".serena/memories/a.md", ".pi/SYSTEM.md",
+              ".factory/droids/a.md", ".qwen/agents/a.md", ".tabnine/guidelines/a.md", ".aiassistant/rules/a.md",
+              ".qoder/rules/a.md", ".crush/skills/x/notes.md", ".vibe/prompts/a.md", ".ruler/a.md", ".ai/guidelines/a.md",
+              "plugin/output-styles/terse.md"]
+    people = ["README.md", "docs/claude-setup.md", "docs/agents-guide.md", "skills/x/references/notes.md", "CONTEXTS.md",
+              "docs/memory.md", "soul.md", "docs/boot.md", "power.md", "USER.md", "TOOLS.md", "BOOTSTRAP.md", "REVIEW.md",
+              "DESIGN.md", "knowledge.md", ".kiro/specs/login/requirements.md", "specs/001-login/spec.md",
+              "docs/prompt.md", "styles/straight-talk/straight-talk.md"]
     assert [p for p in agents if not g._SKIP.search(p)] == []
     assert [p for p in people if g._SKIP.search(p)] == []
 

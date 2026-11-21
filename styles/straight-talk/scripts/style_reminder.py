@@ -18,11 +18,11 @@ REMINDER = (
 )
 
 
-def active_style(project: Path, home: Path) -> str | None:
+def active_style(project: Path, user_config: Path) -> str | None:
     settings_files = (
         project / ".claude" / "settings.local.json",
         project / ".claude" / "settings.json",
-        home / ".claude" / "settings.json",
+        user_config / "settings.json",
     )
     for path in settings_files:
         if not path.is_file():
@@ -37,7 +37,8 @@ def main() -> int:
     try:
         hook_input = json.loads(sys.stdin.read())
         project = Path(os.environ.get("CLAUDE_PROJECT_DIR") or hook_input["cwd"])
-        if active_style(project, Path.home()) == STYLE:
+        user_config = Path(os.environ.get("CLAUDE_CONFIG_DIR") or Path.home() / ".claude")
+        if active_style(project, user_config) == STYLE:
             print(REMINDER)
     except Exception:
         pass

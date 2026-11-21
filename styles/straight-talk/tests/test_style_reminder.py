@@ -21,22 +21,25 @@ REMINDER = (
 )
 
 
-def run_hook(tmp_path: Path, local=None, project=None, user=None) -> subprocess.CompletedProcess:
+def run_hook(tmp_path: Path, local=None, project=None, user=None, config_dir=None) -> subprocess.CompletedProcess:
     project_dir = tmp_path / "project"
     home_dir = tmp_path / "home"
     contents = {
         project_dir / ".claude" / "settings.local.json": local,
         project_dir / ".claude" / "settings.json": project,
         home_dir / ".claude" / "settings.json": user,
+        tmp_path / "config" / "settings.json": config_dir,
     }
     project_dir.mkdir()
     home_dir.mkdir()
     for path, content in contents.items():
         if content is not None:
-            path.parent.mkdir(exist_ok=True)
+            path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content if isinstance(content, str) else json.dumps(content), encoding="utf-8")
-    env = {k: v for k, v in os.environ.items() if k != "CLAUDE_PROJECT_DIR"}
+    env = {k: v for k, v in os.environ.items() if k not in ("CLAUDE_PROJECT_DIR", "CLAUDE_CONFIG_DIR")}
     env["HOME"] = str(home_dir)
+    if config_dir is not None:
+        env["CLAUDE_CONFIG_DIR"] = str(tmp_path / "config")
     return subprocess.run(
         [sys.executable, str(SCRIPT)],
         input=json.dumps({"cwd": str(project_dir)}),
@@ -75,3 +78,13 @@ def test_invalid_json_prints_nothing_and_exits_zero(tmp_path):
     result = run_hook(tmp_path, local="{not json", user={"outputStyle": STYLE})
     assert result.stdout == ""
     assert result.returncode == 0
+
+
+def test_config_dir_replaces_the_home_settings_file(tmp_path):
+    result = run_hook(tmp_path, user={"outputStyle": "default"}, config_dir={"outputStyle": STYLE})
+    assert result.stdout == REMINDER
+
+
+def test_config_dir_with_another_style_prints_nothing(tmp_path):
+    result = run_hook(tmp_path, user={"outputStyle": STYLE}, config_dir={"outputStyle": "default"})
+    assert result.stdout == ""
