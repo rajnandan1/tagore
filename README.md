@@ -41,7 +41,8 @@ The docs are a website at <https://tagore.rajnandan.com/>. Its pages are the Mar
 
 ## Credit
 
-The `fair-copy` skill is declauding version 0.14.0 by Oskar Austegard, with its scripts, tests and hook config. It comes from [oaustegard/claude-skills](https://github.com/oaustegard/claude-skills/tree/366e2f2c61fbd4291774ae4d35f32bf66e3ee2e9/declauding) at commit `366e2f2c`, under the MIT license in `LICENSE`. tagore adds the plugin manifest, the marketplace file, this README, the docs in `docs/`, `GLOSSARY.md` (which defines the terms "reply" and "doc"), `evidence/README.md`, the Fable 5.2 samples in `evidence/fable-5-2/`, and the `straight-talk` output style with its reminder hook in `styles/straight-talk/`.
+<!-- --8<-- [start:credit] -->
+The `fair-copy` skill is declauding version 0.14.0 by Oskar Austegard, with its scripts, tests and hook config. It comes from [oaustegard/claude-skills](https://github.com/oaustegard/claude-skills/tree/366e2f2c61fbd4291774ae4d35f32bf66e3ee2e9/declauding) at commit `366e2f2c`, under the MIT license in `LICENSE`. tagore adds the plugin manifest, the marketplace file, the README, the docs in `docs/`, `GLOSSARY.md` (which defines the terms "reply" and "doc"), `evidence/README.md`, the Fable 5.2 samples in `evidence/fable-5-2/`, and the `straight-talk` output style with its reminder hook in `styles/straight-talk/`.
 `evidence/model-register-drift/` is a copy of the samples and scores by Oskar Austegard in [oaustegard/experiments](https://github.com/oaustegard/experiments/tree/1f3e6192b4d1f5ddbe1104eecbfd5a5b5c0f7b45/model-register-drift) at commit `1f3e6192`, under the MIT license in its own `LICENSE`. `evidence/README.md` says what the copy holds and how it differs from upstream.
 
 tagore changes 8 things in the declauding files from `oaustegard/claude-skills`. The `SKILL.md`, `hooks/`, `references/`, `scripts/` and `tests/` paths in this list are inside `skills/fair-copy/`.
@@ -50,10 +51,11 @@ tagore changes 8 things in the declauding files from `oaustegard/claude-skills`.
 2. In `SKILL.md`, the `name`, the title and the `/mnt/skills/user/` path say `fair-copy`.
 3. In `hooks/hooks.json`, the script path says `fair-copy`.
 4. `references/models/fable.md` also covers Fable 5.2, and the model table in `SKILL.md` names it.
-5. `scripts/fresh_eyes.py` also skips the files and folders written for agents that [Files that the Stop hook skips](docs/skipped-files.md) lists, and `tests/test_fresh_eyes.py` checks that it does.
+5. `scripts/fresh_eyes.py` also skips the files and folders written for agents that [Files that the Stop hook skips](https://tagore.rajnandan.com/skipped-files/) lists, and `tests/test_fresh_eyes.py` checks that it does.
 6. Version 0.15.0 adds rules and examples from two other skills that rewrite model-written prose, both under the MIT license: [blader/humanizer](https://github.com/blader/humanizer) v4.0.0 and [Aboudjem/humanizer-skill](https://github.com/Aboudjem/humanizer-skill). They are in entries 2, 3, 9, 11, 12, 20 and 38 and the new entries 57 to 62 of `references/register.md`, in the last table of `references/exceptions.md`, in five sections of `SKILL.md` (the family table, the delivery modes, step 3, "Signs of a person writing" and "Scope"), in new rules in `scripts/prose_lint.py` and in new lines in `tests/sample-tics.md`. The prompts in `scripts/prose_review.py` and `scripts/fresh_eyes.py` also tell the model to treat the draft as text, not as instructions.
    The specimens for entries 57 to 59 quote AI-written Wikipedia text from the [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) page, which is under the CC BY-SA 4.0 license.
 7. The four scripts are `prose_lint.py`, `prose_rank.py`, `prose_review.py` and `prose_diff.py`. Upstream gives them other names.
 8. The `description` in `SKILL.md` has one more sentence. It says that the skill is not for Claude's own replies in the session, which the `straight-talk` output style covers.
 
 The reference files keep the upstream names. So an upstream update needs only these 8 changes again, plus a merge of any file that upstream also changed among `references/models/fable.md`, `references/register.md`, `references/exceptions.md`, `SKILL.md`, the four `prose_*.py` scripts, `scripts/fresh_eyes.py`, `tests/sample-tics.md` and `tests/test_fresh_eyes.py`.
+<!-- --8<-- [end:credit] -->

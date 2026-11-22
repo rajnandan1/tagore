@@ -19,7 +19,7 @@ nav:
       - Files that the Stop hook skips: skipped-files.md
       - Network calls and files written: network-and-files.md
       - Development: development.md
-      - Credit: https://github.com/rajnandan1/tagore#credit
+      - Credit: credit.md
 
 theme:
   name: material
@@ -51,6 +51,8 @@ extra_css:
 
 markdown_extensions:
   - attr_list
+  - pymdownx.snippets:
+      check_paths: true
   - toc:
       permalink: true
 
