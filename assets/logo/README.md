@@ -25,7 +25,7 @@ Laterite has a contrast of 5.7:1 on white and 5.0:1 on Paper. Laterite light has
 
 ## Files
 
-All the SVG files have a transparent background, except `favicon.svg`.
+All the SVG files have a transparent background, except `favicon.svg` and `og-image.svg`.
 
 | File | Use it for |
 |---|---|
@@ -37,6 +37,8 @@ All the SVG files have a transparent background, except `favicon.svg`.
 | `tagore-symbol-mono.svg` | The `t` alone in one colour |
 | `favicon.svg`, `favicon.ico` | Browser tabs. The `.ico` file holds a 16 px and a 32 px icon. |
 | `apple-touch-icon.png` | The 180 px home-screen icon for iOS |
+| `og-image.png` | The 1200 × 630 px picture that a link to the docs website, https://tagore.rajnandan.com/, shows in a chat app or on a social site. It has the wordmark, one line about tagore and the site address on a Paper background. |
+| `og-image.svg` | The source of `og-image.png` |
 
 The two `-mono` files paint every shape with `currentColor`. To show one in Ink or in Paper, put the SVG inline in the page and set the CSS `color` property to `#1F1D1A` or `#F4F0E8`. As an `<img>`, a `-mono` file shows in pure black, `#000000`.
 

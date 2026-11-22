@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img"><title>tagore: a Claude Code plugin for prose that other people read</title>
+<rect width="1200" height="630" fill="#F4F0E8"/>
+<rect width="1200" height="12" fill="#B83A24"/>
+<svg x="96" y="140" width="560" height="166.74" viewBox="-32 -148 712 212">
+<g fill="#1F1D1A"><path d="M0 -124L24 -148V-42A18 18 0 0 0 42 -24H60V0H42A42 42 0 0 1 0 -42Z"/><path fill-rule="evenodd" d="M84 -54A56 56 0 1 1 196 -54A56 56 0 1 1 84 -54ZM108 -54A32 32 0 1 0 172 -54A32 32 0 1 0 108 -54Z"/><path d="M172 -100H196V0H172Z"/><path fill-rule="evenodd" d="M224 -54A56 56 0 1 1 336 -54A56 56 0 1 1 224 -54ZM248 -54A32 32 0 1 0 312 -54A32 32 0 1 0 248 -54Z"/><path d="M312 -100H336V20A44 44 0 0 1 292 64H248V40H292A20 20 0 0 0 312 20Z"/><path fill-rule="evenodd" d="M364 -54A56 56 0 1 1 476 -54A56 56 0 1 1 364 -54ZM388 -54A32 32 0 1 0 452 -54A32 32 0 1 0 388 -54Z"/><path d="M504 -100H528V0H504Z"/><path d="M520 -56V-100H564V-92A36 36 0 0 0 528 -56Z"/><path d="M663.60 -14.40A56 56 0 1 1 679.10 -64H654.40A32 32 0 1 0 646.63 -31.37Z"/><path d="M588 -64H679.1V-44H588Z"/></g>
+<g fill="#B83A24"><path d="M-32 -112H680V-92H-32Z"/></g>
+</svg>
+<g font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#1F1D1A">
+<text x="96" y="412" font-size="46" font-weight="500">A Claude Code plugin for prose</text>
+<text x="96" y="472" font-size="46" font-weight="500">that other people read.</text>
+<text x="96" y="558" font-size="28" fill="#B83A24">tagore.rajnandan.com</text>
+</g>
+</svg>

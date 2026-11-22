@@ -20,6 +20,7 @@ styles/straight-talk/scripts/            the reminder hook
 styles/straight-talk/tests/              the test of the reminder hook
 docs/                                    the pages of this site
 mkdocs.yml                               the config of this site
+overrides/main.html                      the link preview tags of this site
 .github/workflows/docs.yml               the workflow that publishes this site
 evidence/                                the writing samples and scores behind skills/fair-copy/references/models/
 ```
