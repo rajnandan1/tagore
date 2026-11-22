@@ -11,6 +11,7 @@ The `fair-copy` skill rewrites the sentence patterns that make text read as writ
 
   One upstream script does not work here: `fetch_samples.py` downloads the samples from issue 244 of `oaustegard/claude-workspace`, which is a private repository. You do not need it, because the samples are already in `samples/`. `ISSUE-244.md` is the upstream copy of that issue.
 - `fable-5-2/` holds 2 Fable 5.2 samples, made for tagore on 2026-11-12. Its `README.md` gives the method and the limits.
+- `examples/` holds the text of the runs that the [Examples](https://tagore.rajnandan.com/examples/) page of the docs website shows, made for tagore on 2026-11-22. That page gives the method and the limits.
 
 Each sample is one blog post, "Why we removed our cache", by one model. The Haiku, Opus and Sonnet samples answer the original prompt from issue 244. The Fable 5.1 samples answer a prompt that upstream rebuilt from its description in `RESULTS.md`, and the Fable 5.2 samples answer a prompt rebuilt the same way, as `fable-5-2/README.md` says. The original prompt is in none of these files.
 

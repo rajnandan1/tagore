@@ -1,0 +1,15 @@
+Add an index first. At 40 million rows, a 9-second query filtering on `created_at` is almost certainly a sequential scan, and an index is the direct fix. Partitioning is a much bigger change that mostly solves a different problem.
+
+```sql
+CREATE INDEX CONCURRENTLY idx_mytable_created_at ON mytable (created_at);
+```
+
+`CONCURRENTLY` avoids blocking writes while it builds. Afterwards, run `EXPLAIN (ANALYZE, BUFFERS)` on the query to confirm it uses the index.
+
+- **If the query selects a large fraction of the table** (say, months of data out of a year), a B-tree index won't help much, because Postgres will still prefer a sequential scan. In that case the fix is usually a pre-aggregated table or materialized view, or partitioning so that whole partitions can be skipped.
+- **If the table is append-only and rows arrive in `created_at` order**, a BRIN index is a tiny alternative that works well for range scans: `CREATE INDEX ... USING brin (created_at)`.
+- **If the query also filters on other columns or sorts**, a composite index, or a covering one with `INCLUDE`, may beat a single-column index.
+
+Partitioning is worth it when you need to drop old data cheaply (detaching a partition instead of running a huge `DELETE`), when vacuum and index maintenance on one giant table are becoming painful, or when nearly all queries hit a narrow recent time window. It requires recreating the table and migrating the data, and every unique key has to include the partition key, so it's not worth doing just to fix one slow query.
+
+If you paste the query and its `EXPLAIN (ANALYZE, BUFFERS)` output, I can tell you which index shape fits.

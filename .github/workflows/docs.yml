@@ -8,6 +8,7 @@ on:
       - assets/logo/**
       - mkdocs.yml
       - README.md
+      - evidence/examples/**
       - .github/workflows/docs.yml
   workflow_dispatch:
 

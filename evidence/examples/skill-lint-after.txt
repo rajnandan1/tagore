@@ -1,0 +1,9 @@
+1 candidates in 1 categories
+
+
+[header]  (1)
+      L1  Why we removed the Redis cache from catalog-api
+          coy header — could top three different sections; name the content
+
+Candidates, not verdicts. Check each against references/register.md,
+and note that no regex reaches staged paragraph shape or a staged closer.

@@ -1,0 +1,13 @@
+`draft.md` is rewritten in place, covering both sections (the intro and "The setup"). The claim check reports every number and claim survived and nothing was invented. I did the structural review myself rather than with the skill's script, and skipped the newcomer read because the draft is a new post and not a revision of an existing doc.
+
+What changed:
+
+- **Intro:** the "Not because Redis failed, and not because…" build-up now comes after the reason. The paragraph gives the p99 numbers first (180ms with Redis, 120ms without), then says Redis did not fail and invalidation was not the problem.
+- **"Here is how that happens…":** now a plain statement of what the post covers.
+- **Em dashes:** all three are gone. The read-through wrapper is described in an ordinary clause, and the italics on "worse" are dropped.
+- **Ending of "The setup":** the three short beats ("shipped it. … 84% hit rate. Everyone moved on.") are one sentence.
+- **Title:** now names the cache and the service. The linter still flags it as a "coy header" because it starts with "Why"; I left it because it is your title and it does say what the post is about.
+
+One thing for you to check: the setup says p99 was "around 110ms" before the cache, and the intro says 120ms without it. If those are measurements from two different times (before adding, after removing), the post should say so; otherwise one of them is off. I left both as written.
+
+The original is saved as `draft.orig.md` next to the draft; delete it once you've compared the two.

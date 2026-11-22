@@ -1,0 +1,1 @@
+I have a Postgres table with 40 million rows. A query that filters on created_at takes 9 seconds. Should I add an index or partition the table?

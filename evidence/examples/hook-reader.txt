@@ -1,0 +1,23 @@
+**Section: hook/draft.orig.md** (the "before" text, shown for comparison)
+
+This section doesn't read as a section a newcomer would be handed. It is an earlier version of the same text, and the packet doesn't say why it's there or which one is current.
+- The filename `draft.orig.md` and the heading "hook/draft.orig.md" are the only signal that this is the original. A newcomer has to guess which text is canonical.
+- "Not because Redis failed, and not because of a cache-invalidation horror story" refers to a framing I was never told about.
+- "Here is how that happens" has no clear antecedent. It points back to "worse with the cache than without it", which is a few sentences away.
+- "what we should have measured" promises a measurement. Nothing in the packet says what it is.
+- "Someone looked at the median" doesn't say who. "Everyone moved on" is vague about who and to what.
+
+**Section: hook/draft.md** (the current text)
+
+- "Four months ago" and "Last week" are relative to an unstated date. The post has no date, so these can't be placed.
+- "worse with the cache than without it: 180ms with Redis, 120ms without" doesn't say whether this is p99 across all traffic. It also doesn't say how the numbers were measured.
+- The setup gives p99 as "around 110ms" without the cache. The opening says 120ms without Redis. A newcomer will see two different no-cache p99 figures and not know why.
+- "This post explains how a cache can make p99 worse" is the thesis, but the packet ends at "everyone moved on". Nothing explains the mechanism, so the section stops where the answer should begin. That may be only because the packet is cut off.
+- "what we should have measured" is never answered in the packet.
+- "a well-warmed Postgres replica" is jargon. It is probably fine for the likely audience.
+- "4ms of 'database time'" uses scare quotes, and it isn't clear whether the quoted phrase is a dashboard label or an irony.
+- "84% hit rate" is given with no comparison. It's unclear whether that's good or bad here, and the reader can't yet see why it matters.
+- "Someone looked at the median" is still anonymous, so the story reads as blame by implication.
+- "The p99 was dominated by a handful of large products" sets up the explanation, but the cache's connection to those products is left implicit.
+
+I'd say the new version is clean on word choice. The main gaps are the two differing no-cache p99 figures (120ms and 110ms) and the thesis and measurement promises that the packet doesn't pay off.

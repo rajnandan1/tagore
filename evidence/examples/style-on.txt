@@ -1,0 +1,19 @@
+Add an index first. At 40 million rows, a 9-second filter on `created_at` almost always means that Postgres reads the whole table (a sequential scan), and a plain B-tree index fixes that without changing the table. This is a guess until you see the query plan, because I have not seen the query or the schema.
+
+```sql
+CREATE INDEX CONCURRENTLY idx_your_table_created_at
+  ON your_table (created_at);
+```
+
+`CONCURRENTLY` builds the index without blocking writes to the table. The build takes longer and cannot run inside a transaction block.
+
+The index helps only when the query selects a small share of the rows, roughly under 5 to 10 percent. If the query selects more than that, for example a year of data out of 18 months, Postgres still scans the table and the index changes nothing. In that case the cost is in the volume of rows read, and the fix is a narrower date range, a pre-aggregated summary table, or partitioning.
+
+Partitioning splits the table into one child table per time range, for example one per month. It is worth the work in two cases:
+
+- **Bulk deletion by age:** you remove old data regularly. Dropping a partition is instant, while `DELETE` on millions of rows is slow and leaves dead rows to clean up.
+- **Large range scans:** most queries read one or a few whole time ranges, so Postgres skips the other partitions entirely.
+
+Partitioning costs more than an index: you must rebuild the table, every primary key and unique constraint must include `created_at`, and you must create new partitions on a schedule. Queries that do not filter on `created_at` can get slower.
+
+Next: run the query with `EXPLAIN (ANALYZE, BUFFERS)` in front of it and paste the output here. If it shows `Seq Scan` with most rows removed by the filter, the index is the right fix.

@@ -1,0 +1,14 @@
+`draft.md` is rewritten in place; both sections (the intro and "The setup") were reviewed, and every number and claim in the original is still there except one sentence I cut on purpose.
+
+What changed:
+
+- **Title:** "Why we removed our cache" is now "Why we removed the Redis cache from catalog-api", so it names which cache and which service.
+- **Intro:** "Not because Redis failed, and not because of a cache-invalidation horror story. We removed it because…" is now two plain statements: Redis did not fail, there was no invalidation incident, and p99 was worse with the cache (180ms with Redis, 120ms without). The italic *worse* and its em dash are gone.
+- **Cut sentence:** "Here is how that happens, and what we should have measured before writing a line of caching code." It announced sections the file does not contain. If the rest of the post exists elsewhere, the sentence is still redundant with those sections; if the "should have measured first" judgment matters to you, put it where the measurement is discussed.
+- **Setup:** the em-dash aside describing the read-through wrapper is now an ordinary clause, and "Everyone moved on." is folded into the sentence before it instead of standing alone as a beat.
+
+The lint scan still flags the title as a "coy header", and I left it because a post title that asks "why" and names the subject is fine. The claims diff reports one fewer negation, which is the "not because… not because" rephrasing and not a lost claim. The structural review was my own read, since I didn't write the draft.
+
+One thing for you to check: the setup says p99 was "around 110ms" before the cache, while the intro says 120ms without it. Both can be true (before versus after removal), but a reader will compare them, so say which measurement each one is.
+
+The original is saved next to it as `draft.source.md`; delete it once you're happy with the rewrite.

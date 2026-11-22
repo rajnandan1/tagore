@@ -1,0 +1,8 @@
+before.md -> after.md: 1 finding(s)
+
+  [COUNT] negation     'negation total'  source 4 -> rewrite 3
+          1 fewer — a negation was lost — the claim may now say the opposite
+
+A finding is not a verdict. Each one is either a claim the edit dropped,
+a fact it invented, or a rephrasing this check cannot see through — decide
+which, and --waive the ones that are rephrasings.
