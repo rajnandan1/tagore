@@ -48,6 +48,8 @@ uvx --with mkdocs-material==9.8.2 mkdocs build --strict
 
 `docs/logo` is a symbolic link to `assets/logo/`, so the site uses the same logo files as the README.
 
-The workflow `.github/workflows/docs.yml` builds the site and publishes it to GitHub Pages on each push to `main` that changes `docs/`, `assets/logo/`, `mkdocs.yml` or the workflow file.
+The Credit page of the site has no text of its own. `docs/credit.md` holds one include line, and MkDocs puts the Credit section of the README in its place. The 2 marker comments in the README show where that section starts and ends. So a change to the credit goes in the README only.
+
+The workflow `.github/workflows/docs.yml` builds the site and publishes it to GitHub Pages on each push to `main` that changes `docs/`, `assets/logo/`, `mkdocs.yml`, `README.md` or the workflow file.
 
 Material for MkDocs reaches its end of life on May 5, 2027. Its successor, Zensical, reads the same `mkdocs.yml`, but Zensical 0.1.3 does not copy the files behind the `docs/logo` link.

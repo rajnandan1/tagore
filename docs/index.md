@@ -6,7 +6,7 @@ tagore is a Claude Code plugin for prose that other people read. It has 3 parts:
 - **[A Stop hook](hooks.md#the-stop-hook)** runs each time Claude tries to end a turn. If the turn changed a doc, Claude must first have a fresh subagent read the new text as a newcomer.
 - **[The `straight-talk` output style](straight-talk.md)** shapes what Claude says to you in the session. The answer comes first, numbers stay exact, each new term gets a definition, and the reply ends with one next action. You turn it on and off yourself.
 
-The skill, its scripts and the Stop hook come from declauding by Oskar Austegard (see [Credit](https://github.com/rajnandan1/tagore#credit)). The output style is tagore's own. tagore packages all of them as a plugin that you can install.
+The skill, its scripts and the Stop hook come from declauding by Oskar Austegard (see [Credit](credit.md)). The output style is tagore's own. tagore packages all of them as a plugin that you can install.
 
 ## Install
 
