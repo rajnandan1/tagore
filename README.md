@@ -28,7 +28,7 @@ To turn it off, run `claude plugin disable tagore@tagore`. This turns off the sk
 
 ## Docs
 
-The docs are a website at <https://rajnandan1.github.io/tagore/>. Its pages are the Markdown files in `docs/`:
+The docs are a website at <https://tagore.rajnandan.com/>. Its pages are the Markdown files in `docs/`:
 
 - [Quick start](docs/quick-start.md) installs tagore and uses each of the 3 parts once.
 - [How it works](docs/how-it-works.md) says which part works on which text, and when each part runs.
