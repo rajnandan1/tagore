@@ -1,0 +1,9 @@
+# Why we removed our cache
+
+Four months ago we put a Redis read-through cache in front of the Postgres queries powering our product catalog service, `catalog-api`. Last week we took it out. Not because Redis failed, and not because of a cache-invalidation horror story. We removed it because our p99 latency was *worse* with the cache than without it — 180ms with Redis, 120ms without. Here is how that happens, and what we should have measured before writing a line of caching code.
+
+## The setup
+
+`catalog-api` serves product detail lookups by ID. Each request ran one indexed primary-key query against a well-warmed Postgres replica. Median latency was around 4ms, p99 around 110ms. The p99 was dominated by a handful of large products whose rows joined out to big variant and pricing tables.
+
+Someone looked at the median, saw 4ms of "database time" on every request, and reasoned that caching would eliminate it. We stood up Redis, wrote a read-through wrapper — check Redis, on a miss query Postgres and populate the key with a 10-minute TTL — and shipped it. The dashboards showed an 84% hit rate. Everyone moved on.

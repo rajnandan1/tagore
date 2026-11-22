@@ -1,0 +1,16 @@
+The newcomer read is done, and I made no further edits to `draft.md`: every point it raised needs either facts only you have or the rest of the post.
+
+Points that need your input:
+
+- **Two no-cache p99 figures:** the reader also tripped on "around 110ms" in the setup against "120ms without" in the intro. This is the same issue I flagged before, and it is the one most worth fixing.
+- **Unpaid promises:** the intro says the post explains how a cache can make p99 worse and what you should have measured, but the draft ends at "everyone moved on". I assume the rest of the post is still to be written.
+- **No date:** "Four months ago" and "Last week" can't be placed unless the post carries a publication date.
+- **How the numbers were measured:** the draft doesn't say whether 180ms and 120ms are p99 across all traffic or over what window.
+
+Points I'm leaving as they are:
+
+- **"Someone looked at the median"** and **"everyone moved on"**: these are your wording, and naming who would be inventing detail.
+- **"well-warmed Postgres replica"**, the quotes on "database time", and the bare **84% hit rate**: fine for an engineering audience, and the hit rate presumably gets its meaning in the missing part of the post.
+- **Comments on `draft.orig.md`:** that file is only my backup of your original, not something a reader will see.
+
+Next step: tell me which p99 figure is right (or that they are from different periods), and I'll fix the sentence.

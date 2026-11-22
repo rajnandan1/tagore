@@ -1,0 +1,17 @@
+3 candidates in 3 categories
+
+
+[em-dash]  (1)
+      L9  — and shipped it. The dashboards showed an 84% hit rate. Everyone moved on.
+          clause after a dash running to the end of the sentence — dash as drum roll
+
+[header]  (1)
+      L1  Why we removed our cache
+          coy header — could top three different sections; name the content
+
+[density]  (1)
+       —  em-dash density
+          3 em-dashes in 183 words (2.5 per 150) — above ~1.0 reads machine-written
+
+Candidates, not verdicts. Check each against references/register.md,
+and note that no regex reaches staged paragraph shape or a staged closer.

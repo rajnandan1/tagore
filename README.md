@@ -32,6 +32,7 @@ The docs are a website at <https://tagore.rajnandan.com/>. Its pages are the Mar
 
 - [Quick start](docs/quick-start.md) installs tagore and uses each of the 3 parts once.
 - [How it works](docs/how-it-works.md) says which part works on which text, and when each part runs.
+- [Examples](https://tagore.rajnandan.com/examples/) shows one real run of each part, with the text before and after.
 - [The `fair-copy` skill](docs/fair-copy.md) says how to call the skill and gives its 5 steps.
 - [Hooks](docs/hooks.md) covers the 2 hooks of tagore: the Stop hook, and the reminder hook that comes with the output style. It says when each hook runs, what it does and when it stays silent.
 - [The `straight-talk` output style](docs/straight-talk.md) gives the rules of the style and says how to turn it on and off.

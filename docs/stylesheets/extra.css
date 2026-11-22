@@ -16,6 +16,11 @@
   --md-typeset-a-color: #E8694F;
 }
 
+.md-typeset pre.wrap > code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 .md-header {
   border-top: 0.2rem solid #E8694F;
 }
