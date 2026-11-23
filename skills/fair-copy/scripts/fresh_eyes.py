@@ -21,7 +21,7 @@ transcripts, memory files, anything under a Log, Changelog, History or Release n
 GLOSSARY.md, .claude/, docs/adr/, wayfinder's .scratch/ and the like); generated text (_site/, tools.html,
 blog/index.html, feed.xml, <!--gen:NAME--> regions); edits that change no visible prose; and changes under MIN_PROSE
 characters, such as a typo or a link. Every run appends a line to LOG, which is how to tell whether the hook fires in
-a given environment. Fails open: an error never blocks. Standard library only.
+a given environment. Fails open: an error never blocks. packet leaves out the same files and folders. Standard library only.
 """
 
 from __future__ import annotations
@@ -196,6 +196,12 @@ def repos(extra: tuple[str, ...] = ()) -> list[Path]:
                 seen.add(d.resolve())
                 out.append(d)
     return out
+
+
+def _repo_rel(p: Path, given: str) -> str:
+    """p relative to the git repository that holds it, else the path as given: the form _SKIP matches."""
+    root = next((d for d in p.parents if (d / ".git").exists()), None)
+    return str(p.relative_to(root)) if root else given
 
 
 def _whole(root: Path, rel: str) -> dict | None:
@@ -490,6 +496,10 @@ def main(argv: list[str]) -> int:
         items = []
         for f in argv[2:]:
             p = Path(f).resolve()
+            if _SKIP.search(_repo_rel(p, f)):
+                print(f"left out {f}, a file the Stop hook skips: https://tagore.rajnandan.com/skipped-files/",
+                      file=sys.stderr)
+                continue
             it = _whole(p.parent, p.name)
             if it:
                 items.append(it)
