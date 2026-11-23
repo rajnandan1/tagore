@@ -270,7 +270,10 @@ hand the text to one:
 python3 scripts/fresh_eyes.py packet README.md docs/setup.md
 ```
 
-Pass every reader-facing file the work touched. The script writes the packet, a
+Pass every reader-facing file the work touched. Files written for agents, such
+as `CLAUDE.md` or a planning map in `.scratch/`, are not reader-facing. The
+script leaves them out, with the other files the Stop hook skips, and names
+each file it left out. It writes the packet, a
 single Markdown file holding those files' text as it stands (Markdown whole,
 visible text only for HTML), and prints its path and a prompt. Send the prompt
 verbatim to a subagent that has not seen this conversation, on Sonnet (Agent

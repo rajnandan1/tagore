@@ -19,7 +19,7 @@ The Stop hook runs `skills/fair-copy/scripts/fresh_eyes.py` each time Claude tri
 
 The hook blocks at most once per turn. If Claude tries to end the turn again without the read, the turn ends. If the hook itself has an error, it lets the turn end.
 
-To make a packet of a whole `.md` or `.html` file at any time, run `python3 skills/fair-copy/scripts/fresh_eyes.py packet <file>` from the root of a clone of the [tagore repository](https://github.com/rajnandan1/tagore). The command prints the packet path and the prompt. Give that prompt to a subagent to get the newcomer read.
+To make a packet of a whole `.md` or `.html` file at any time, run `python3 skills/fair-copy/scripts/fresh_eyes.py packet <file>` from the root of a clone of the [tagore repository](https://github.com/rajnandan1/tagore). The command leaves out the files that [Files that the Stop hook skips](skipped-files.md) lists, and it names each file that it left out. It prints the packet path and the prompt. Give that prompt to a subagent to get the newcomer read.
 
 ## The reminder hook
 

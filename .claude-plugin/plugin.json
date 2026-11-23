@@ -1,6 +1,6 @@
 {
   "name": "tagore",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Rewrites prose that reads as model-written into plain technical prose, checks that the rewrite kept every claim, has a fresh subagent read changed docs before a turn ends, and offers an output style for clear replies.",
   "author": {
     "name": "rajnandan1",

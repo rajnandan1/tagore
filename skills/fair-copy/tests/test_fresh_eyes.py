@@ -177,6 +177,23 @@ def test_files_written_for_agents_are_skipped_and_docs_for_people_are_not():
     assert [p for p in people if g._SKIP.search(p)] == []
 
 
+def test_packet_leaves_out_files_the_hook_skips(tmp_path):
+    r = tmp_path / ".claude" / "worktrees" / "game"
+    (r / ".scratch" / "steering").mkdir(parents=True)
+    subprocess.run(["git", "init", "-q", str(r)], check=True)
+    (r / "README.md").write_text(README)
+    (r / ".scratch" / "steering" / "map.md").write_text("## Destination\n\nA steering model the brake and gas share.\n")
+    env = dict(os.environ, FRESH_EYES_OUT=str(tmp_path / "pk"))
+    def packet(*files):
+        return subprocess.run([sys.executable, str(SKILL / "scripts" / "fresh_eyes.py"), "packet", *files],
+                              capture_output=True, text=True, env=env, cwd=str(r))
+    alone = packet(str(r / ".scratch" / "steering" / "map.md"))
+    assert alone.returncode == 1 and alone.stdout == "" and "map.md" in alone.stderr
+    mixed = packet("README.md", ".scratch/steering/map.md")
+    assert mixed.returncode == 0 and g.MARK in mixed.stdout and "map.md" not in mixed.stdout
+    assert "steering wheel" in Path(mixed.stdout.splitlines()[0]).read_text()
+
+
 def test_generated_region_and_working_records_do_not_count(tmp_path, monkeypatch):
     page = "<h1>Toys</h1>\n<p>Small things to play with on a phone.</p>\n<!--gen:tools-->\n<li>Plumb: a pipe puzzle</li>\n<!--/gen:tools-->\n"
     r, git = repo(tmp_path, monkeypatch, {"index.html": page, "exp/ERRORS.md": "# Errors\n\nNone yet.\n"})

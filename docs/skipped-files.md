@@ -1,6 +1,6 @@
 # Files that the Stop hook skips
 
-[The Stop hook](hooks.md#the-stop-hook) looks for `.md` and `.html` files that changed during a turn. It skips the files, the folders and the parts of files on this page. The name match ignores case, except for 9 names that match only in capital letters. The third item under Files lists those 9 names.
+[The Stop hook](hooks.md#the-stop-hook) looks for `.md` and `.html` files that changed during a turn. It skips the files, the folders and the parts of files on this page. The command `fresh_eyes.py packet`, which makes a packet by hand, leaves out the same files and folders. The name match ignores case, except for 9 names that match only in capital letters. The third item under Files lists those 9 names.
 
 ## Files
 
